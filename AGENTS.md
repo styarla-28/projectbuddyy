@@ -16,3 +16,4 @@
 - Route check-in activity selections into the shared GroundingSheet and keep breathing phase timing in breathing.ts; Home box breathing and check-in stream breathing retain their distinct rhythms.
 - Keep sensory preferences in the root-mounted SensoryProvider and apply the effective quiet state to body; route changes and portaled activities must honor the same reduced-motion and media-muting controls.
 - Define shared motion timing and easing in src/styles.css and compose companion breathing and settling on separate elements; independent transforms preserve the breathing rhythm.
+- Keep the full-screen Tactile Texture Pad as its own route with canvas surfaces in TexturePad.tsx; focused activities hide the bottom nav and Home/check-in route into it.

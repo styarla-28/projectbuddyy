@@ -185,3 +185,17 @@ body { font-family: var(--font-sans); letter-spacing: 0; }
 @media (prefers-reduced-motion: reduce) {
   .grounding-card:active, .meadow-card:active, .pause-action:active, .texture-pebble:active, .pause-sheet button:active { transform: none; }
 }
+.breath-ring { animation: breath-ring var(--pb-motion-breath) var(--pb-ease-breathe) infinite; }
+@keyframes breath-ring { 0%,100% { transform: scale(.88); opacity: .75; } 40.9091%,50% { transform: scale(1.08); opacity: 1; } }
+.seed-bloom { animation: seed-bloom 600ms var(--pb-ease-ghibli); }
+@keyframes seed-bloom { from { transform: scale(.7); opacity: .4; } to { transform: scale(1); opacity: 1; } }
+.texture-tab { transition: background-color 180ms var(--pb-ease-ghibli), border-color 180ms var(--pb-ease-ghibli); }
+.pb-evening {
+  --background: oklch(0.24 0.012 95); --foreground: oklch(0.96 0.01 87); --card: oklch(0.3 0.012 95);
+  --secondary: oklch(0.33 0.015 90); --muted-foreground: oklch(0.82 0.015 90); --graphite: oklch(0.9 0.012 90);
+  --border: oklch(0.5 0.02 90); --primary: oklch(0.72 0.07 139); --primary-strong: oklch(0.86 0.06 139);
+  --primary-foreground: oklch(0.2 0.01 95); --primary-soft: oklch(0.34 0.03 139);
+  --stream: oklch(0.78 0.07 219); --stream-soft: oklch(0.32 0.03 220);
+  --honey: oklch(0.82 0.12 81); --honey-soft: oklch(0.34 0.04 85); --wood: var(--honey);
+  background-color: var(--background); color: var(--foreground);
+}

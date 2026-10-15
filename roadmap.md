@@ -13,3 +13,6 @@
 - [x] Add slow breathing, subtle settling, and shared motion tokens.
 - [x] Honor Quiet Mode and system reduced motion with still visuals and muted sound.
 - [x] Verify controls, activity transitions, and mobile layout.
+# Tactile Texture Pad
+- [x] Full-screen pad with four surfaces, breath ring, sound/haptic/evening controls.
+- [x] Route Home and check-in into it; verify.
