@@ -23,7 +23,7 @@ export function SensoryProvider({ children }: { children: ReactNode }) {
     const muteMedia = () => {
       document.querySelectorAll<HTMLMediaElement>("audio, video").forEach((media) => {
         if (!previousMuted.has(media)) previousMuted.set(media, media.muted);
-        media.muted = true;
+        if (!media.muted) media.muted = true;
       });
     };
     muteMedia();
