@@ -55,7 +55,7 @@ function Tools() {
       {sections.filter((s) => filter === "all" || filter === s.cat).map((s) => <section key={s.cat} className="mt-6" aria-labelledby={`sec-${s.cat}`}>
         <h2 id={`sec-${s.cat}`} className="mb-3 font-display text-lg">{s.title}</h2>
         <div className="grid gap-3">{tools.filter((t) => t.cat === s.cat).map(({ id, title, tag, text, icon: Icon, tint, ink }) => <Button key={id} variant="ghost" onClick={() => launch(id)} className="grounding-card min-h-[88px] w-full justify-start gap-4 whitespace-normal rounded-2xl border border-border bg-card px-4 py-4 text-left shadow-soft hover:bg-card">
-          <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${tint} ${ink}`}>{id === "sound" && sensoryQuiet ? <VolumeX className="h-6 w-6" strokeWidth={1.4} /> : <Icon className="h-6 w-6" strokeWidth={1.4} />}</span>
+          <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${tint} ${ink}`}>{id === "sound" && sensoryQuiet ? <VolumeX className="size-6!" strokeWidth={1.4} /> : <Icon className="size-6!" strokeWidth={1.4} />}</span>
           <span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="text-sm font-semibold text-foreground">{title}</span><span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-graphite">{id === "sound" && sensoryQuiet ? "Muted in Quiet Mode" : tag}</span></span><span className="mt-1 block text-xs font-normal text-graphite">{text}</span></span>
         </Button>)}</div>
       </section>)}
