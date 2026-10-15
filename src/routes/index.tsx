@@ -1,11 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Flower2, Leaf, Moon, Sprout, Sun, VolumeX, Wind } from "lucide-react";
+import { ArrowUpRight, Flower2, Leaf, Moon, Sparkles, Sprout, Sun, VolumeX, Wind } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CozyRoom } from "@/components/buddy/CozyRoom";
 import { CheckInSheet } from "@/components/buddy/CheckInSheet";
 import { BottomNav } from "@/components/buddy/BottomNav";
 import { GroundingSheet, type GroundingActivity } from "@/components/buddy/GroundingSheet";
+import { SensoryGuideSheet } from "@/components/buddy/SensoryGuideSheet";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   const { quiet, sensoryQuiet, reducedMotion, toggleQuiet } = useSensoryControls();
   const [checkIn, setCheckIn] = useState(false);
+  const [guide, setGuide] = useState(false);
   const [activity, setRawActivity] = useState<GroundingActivity>(null);
   const navigate = useNavigate();
   const setActivity = (a: GroundingActivity) => { if (a === "texture") { setCheckIn(false); navigate({ to: "/texture" }); } else setRawActivity(a); };
@@ -46,9 +48,10 @@ function Home() {
         </div>
       </section>
       <Button variant="ghost" onClick={() => setActivity("meadow")} className="meadow-card mt-4 h-[82px] w-full justify-start gap-4 whitespace-normal rounded-2xl border border-primary/15 bg-primary-soft/60 px-5 text-left hover:bg-primary-soft"><span className="relative flex h-12 w-12 shrink-0 items-center justify-center"><Flower2 className="h-10 w-10 text-primary" strokeWidth={1.1} /><Sprout className="absolute -bottom-1 -right-1 h-5 w-5 text-primary-strong" strokeWidth={1.3} /></span><span className="flex-1"><span className="block font-display text-[17px] text-primary-strong">Visit Healing Meadow</span><span className="mt-1 block text-[11px] font-normal text-graphite">A small place for gentle growth</span></span><ArrowUpRight className="h-4 w-4 text-primary" /></Button>
+      <Button variant="ghost" onClick={() => setGuide(true)} className="grounding-card mt-3 h-[72px] w-full justify-start gap-4 whitespace-normal rounded-2xl border border-honey/20 bg-card/70 px-5 text-left hover:bg-honey-soft/60"><Sparkles className="h-7 w-7 shrink-0 text-honey" strokeWidth={1.4} /><span className="flex-1"><span className="block text-[13px] font-semibold text-graphite">What do your hands need?</span><span className="mt-1 block text-[11px] font-normal text-muted-foreground">Describe it, get a gentle exercise idea</span></span><ArrowUpRight className="h-4 w-4 text-honey" /></Button>
       <p className="mt-5 text-center font-display text-xs italic text-muted-foreground">Small pauses count, too.</p>
     </main>
     <BottomNav />
-    <div className={sensoryQuiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setRawActivity(null)} /></div>
+    <div className={sensoryQuiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><SensoryGuideSheet open={guide} onOpenChange={setGuide} onOpenActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setRawActivity(null)} /></div>
   </div>;
 }
