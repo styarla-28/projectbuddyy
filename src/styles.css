@@ -199,3 +199,11 @@ body { font-family: var(--font-sans); letter-spacing: 0; }
   --honey: oklch(0.82 0.12 81); --honey-soft: oklch(0.34 0.04 85); --wood: var(--honey);
   background-color: var(--background); color: var(--foreground);
 }
+.pb-evening {
+  --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card);
+  --color-secondary: var(--secondary); --color-muted-foreground: var(--muted-foreground); --color-graphite: var(--graphite);
+  --color-border: var(--border); --color-primary: var(--primary); --color-primary-strong: var(--primary-strong);
+  --color-primary-foreground: var(--primary-foreground); --color-primary-soft: var(--primary-soft);
+  --color-stream: var(--stream); --color-stream-soft: var(--stream-soft); --color-honey: var(--honey);
+  --color-honey-soft: var(--honey-soft); --color-wood: var(--wood); --color-accent: var(--secondary); --color-accent-foreground: var(--foreground);
+}
