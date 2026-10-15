@@ -156,6 +156,16 @@ body { font-family: var(--font-sans); letter-spacing: 0; }
 .nav-link[data-status="active"] .nav-icon { background: var(--primary-soft); }
 .grounding-card, .meadow-card, .pause-action, .texture-pebble { transition: transform .18s ease, background .18s ease; }
 .grounding-card:active, .meadow-card:active, .texture-pebble:active { transform: scale(.97); }
+.pause-sheet { box-shadow: var(--shadow-soft); }
+.pause-stone { border-radius: 55% 45% 60% 40%; }
+.pause-choice { transition: transform .18s ease, border-color .18s ease; }
+.pause-choice:active { transform: scale(.98); }
+.urge-slider [data-orientation="horizontal"] { height: 8px; background: var(--primary-soft); }
+.urge-slider [role="slider"] { height: 48px; width: 48px; border: 2px solid var(--primary); border-radius: 55% 45% 60% 40%; background: var(--honey-soft); box-shadow: var(--shadow-soft); }
+.urge-slider [role="slider"]::after { content: ""; display: block; width: 14px; height: 9px; margin: 16px auto; border: 1px solid var(--primary); border-radius: 80% 15% 80% 15%; transform: rotate(-25deg); }
+.breathing-pebble { border-radius: 46% 54% 42% 58%; }
+.meadow-flower { animation: meadow-sway 7s ease-in-out infinite; transform-origin: bottom center; }
+@keyframes meadow-sway { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
 @keyframes companion-rest { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
 @keyframes companion-hello { 0%,100% { transform: rotate(0); } 35% { transform: rotate(-5deg); } 70% { transform: rotate(4deg); } }
 @media (min-width: 640px) { .sanctuary { aspect-ratio: 1.45; } }

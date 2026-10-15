@@ -50,6 +50,6 @@ function Home() {
       <p className="mt-5 text-center font-display text-xs italic text-muted-foreground">Small pauses count, too.</p>
     </main>
     <BottomNav />
-    <div className={quiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} /><GroundingSheet activity={activity} onClose={() => setActivity(null)} /></div>
+    <div className={quiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setActivity(null)} /></div>
   </div>;
 }
