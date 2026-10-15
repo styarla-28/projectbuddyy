@@ -59,7 +59,7 @@ function Home() {
               <CozyRoom />
             </div>
             {showCard && (
-              <div className="absolute inset-x-3 top-3 flex items-start gap-2 rounded-[18px] bg-card/95 p-3 pl-4 shadow-soft">
+              <div className="flex items-start gap-2 border-t border-border p-3 pl-4">
                 <p className="flex-1 pt-1.5 text-sm leading-snug">I'm here with you. Take a breath with me.</p>
                 <button onClick={() => setShowCard(false)} className="min-h-11 shrink-0 rounded-full px-3 text-xs text-muted-foreground hover:bg-secondary">
                   Dismiss quietly
