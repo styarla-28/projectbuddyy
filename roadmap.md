@@ -10,6 +10,6 @@
 - [x] Verify timing, skip/close behavior, and mobile interaction flow.
 
 # Home sensory motion
-- [ ] Add slow breathing, subtle settling, and shared motion tokens.
-- [ ] Honor Quiet Mode and system reduced motion with still visuals and muted sound.
-- [ ] Verify controls, activity transitions, and mobile layout.
+- [x] Add slow breathing, subtle settling, and shared motion tokens.
+- [x] Honor Quiet Mode and system reduced motion with still visuals and muted sound.
+- [x] Verify controls, activity transitions, and mobile layout.
