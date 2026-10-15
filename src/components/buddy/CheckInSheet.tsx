@@ -9,7 +9,8 @@ const steps = [
 
 export function CheckInSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
   const [step, setStep] = useState(0);
-  const done = step >= steps.length;
+  const current = steps[step];
+  const done = !current;
 
   const close = (o: boolean) => {
     onOpenChange(o);
@@ -32,11 +33,11 @@ export function CheckInSheet({ open, onOpenChange }: { open: boolean; onOpenChan
             <>
               <SheetHeader className="text-left">
                 <p className="text-xs font-medium text-accent">Step {step + 1} of 3 · all optional</p>
-                <SheetTitle>{steps[step].title}</SheetTitle>
+                <SheetTitle>{current.title}</SheetTitle>
                 <SheetDescription>There's no wrong answer.</SheetDescription>
               </SheetHeader>
               <div className="mt-4 grid grid-cols-2 gap-3 px-4">
-                {steps[step].options.map((o) => (
+                {current.options.map((o) => (
                   <button key={o} onClick={() => setStep(step + 1)} className="min-h-14 rounded-[18px] bg-secondary px-3 text-sm font-medium transition-colors hover:bg-primary-soft">
                     {o}
                   </button>
