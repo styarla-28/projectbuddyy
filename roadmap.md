@@ -16,3 +16,4 @@
 # Tactile Texture Pad
 - [x] Full-screen pad with four surfaces, breath ring, sound/haptic/evening controls.
 - [x] Route Home and check-in into it; verify.
+- [x] Tools Sanctuary: filters, 3 categories, 7 tools in exit-able sheets, quiet-muted soundscapes.
