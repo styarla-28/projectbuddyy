@@ -57,7 +57,7 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
       g.clearRect(0, 0, width, height);
       const now = performance.now();
       const fades = surface !== "sand" && !quiet;
-      if (fades) strokes.current = strokes.current.filter((s) => active.current.has(s.id) || now - s.points[s.points.length - 1].t < FADE_MS);
+      if (fades) strokes.current = strokes.current.filter((s) => active.current.has(s.id) || now - (s.points[s.points.length - 1]?.t ?? 0) < FADE_MS);
       g.lineCap = "round"; g.lineJoin = "round";
       for (const s of strokes.current) {
         for (let i = 1; i < s.points.length; i++) {
@@ -77,7 +77,7 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
         }
         if (surface === "pebble" && fades) {
           for (let i = 0; i < s.points.length; i += 6) {
-            const p = s.points[i]; const age = (now - p.t) / FADE_MS;
+            const p = s.points[i]; if (!p) continue; const age = (now - p.t) / FADE_MS;
             if (age >= 1) continue;
             const ease = 1 - Math.pow(1 - age, 3);
             g.strokeStyle = tone("--stream", 0.35 * (1 - age)); g.lineWidth = 1.5;
