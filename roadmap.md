@@ -5,6 +5,6 @@
 - [x] Verify mobile layout, interactions, and existing tests.
 
 # Gentle urge pause
-- [ ] Build three optional steps with visible exits and preserved session choices.
-- [ ] Connect guided 4-7-8 breathing, tactile pad, and a hands-free meadow.
-- [ ] Verify timing, skip/close behavior, and mobile interaction flow.
+- [x] Build three optional steps with visible exits and preserved session choices.
+- [x] Connect guided 4-7-8 breathing, tactile pad, and a hands-free meadow.
+- [x] Verify timing, skip/close behavior, and mobile interaction flow.
