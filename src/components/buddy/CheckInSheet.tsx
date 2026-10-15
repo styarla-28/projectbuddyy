@@ -44,7 +44,7 @@ export function CheckInSheet({ open, onOpenChange, onBeginActivity }: {
     contentRef.current?.scrollTo({ top: 0 });
     requestAnimationFrame(() => headingRef.current?.focus());
   };
-  const chipClass = (selected: boolean) => `min-h-12 rounded-2xl border px-4 py-3 text-sm whitespace-normal font-medium transition-colors active:scale-[0.98] ${selected ? "border-primary bg-honey-soft text-primary-strong hover:bg-honey-soft" : "border-border bg-card text-graphite hover:bg-secondary"}`;
+  const chipClass = (selected: boolean) => `min-h-12 rounded-2xl border px-4 py-3 text-sm whitespace-normal font-medium transition-colors active:scale-[0.98] ${selected ? "border-primary bg-honey-soft text-primary-strong hover:bg-honey-soft hover:text-primary-strong" : "border-border bg-card text-graphite hover:bg-secondary hover:text-graphite"}`;
 
   return <Sheet open={open} onOpenChange={close}>
     <SheetContent ref={contentRef} side="bottom" showCloseButton={false} className="pause-sheet max-h-[94dvh] overflow-y-auto rounded-t-3xl border-border bg-background px-5 pt-3 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:inset-x-auto sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:px-7">
