@@ -77,6 +77,11 @@
 }
 
 :root, .dark {
+  --pb-motion-breath: 11000ms;
+  --pb-motion-drift: 7500ms;
+  --pb-motion-micro: 14000ms;
+  --pb-ease-breathe: cubic-bezier(0.42, 0, 0.58, 1);
+  --pb-ease-ghibli: cubic-bezier(0.25, 0.1, 0.25, 1.0);
   --radius: 1rem;
   --background: oklch(0.971 0.01 87);
   --foreground: oklch(0.278 0.009 96);
@@ -139,8 +144,8 @@
 @keyframes breathe { 0%,100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 35%, transparent);} 50% { transform: scale(1.03); box-shadow: 0 0 0 10px color-mix(in oklab, var(--primary) 0%, transparent);} }
 @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-4px);} }
 @keyframes wave { 0%,100% { transform: rotate(0);} 25% { transform: rotate(-18deg);} 75% { transform: rotate(10deg);} }
-@utility animate-breathe { animation: breathe 5s ease-in-out infinite; }
-@utility animate-bob { animation: bob 4s ease-in-out infinite; }
+@utility animate-breathe { animation: breathe var(--pb-motion-breath) var(--pb-ease-breathe) infinite; }
+@utility animate-bob { animation: bob var(--pb-motion-drift) var(--pb-ease-ghibli) infinite; }
 .quiet *, .quiet *::before, .quiet *::after { animation: none !important; transition-duration: 0.01ms !important; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
 
@@ -150,23 +155,33 @@ body { font-family: var(--font-sans); letter-spacing: 0; }
 .sanctuary { aspect-ratio: 1.32; box-shadow: var(--shadow-soft); }
 .sanctuary-dialogue::after { content: ""; position: absolute; bottom: -7px; left: calc(50% - 7px); width: 14px; height: 14px; background: var(--card); transform: rotate(45deg); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .buddy-target { transform: translateX(-50%); }
-.buddy-rest { animation: companion-rest 5s ease-in-out infinite; transform-origin: bottom center; }
-.buddy-hello { animation: companion-hello 1s ease-in-out; }
+.buddy-rest { animation: companion-rest var(--pb-motion-breath) var(--pb-ease-breathe) infinite; transform-origin: bottom center; }
+.buddy-settle { animation: companion-settle var(--pb-motion-micro) var(--pb-ease-ghibli) infinite; transform-origin: bottom center; }
 .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
 .nav-link[data-status="active"] .nav-icon { background: var(--primary-soft); }
-.grounding-card, .meadow-card, .pause-action, .texture-pebble { transition: transform .18s ease, background .18s ease; }
+.grounding-card, .meadow-card, .pause-action, .texture-pebble, .pause-sheet button { transition: transform 180ms var(--pb-ease-ghibli), background-color 180ms var(--pb-ease-ghibli), border-color 180ms var(--pb-ease-ghibli); }
+.pb-sheet[data-state], .pb-sheet-overlay[data-state] { animation-duration: 180ms; animation-timing-function: var(--pb-ease-ghibli); transition-duration: 180ms; transition-timing-function: var(--pb-ease-ghibli); }
 .grounding-card:active, .meadow-card:active, .texture-pebble:active { transform: scale(.97); }
 .pause-sheet { box-shadow: var(--shadow-soft); }
 .pause-stone { border-radius: 55% 45% 60% 40%; }
-.pause-choice { transition: transform .18s ease, border-color .18s ease; }
+.pause-choice { transition: transform 180ms var(--pb-ease-ghibli), border-color 180ms var(--pb-ease-ghibli); }
 .pause-choice:active { transform: scale(.98); }
 .urge-slider [data-orientation="horizontal"] { height: 8px; background: var(--primary-soft); }
 .urge-slider [role="slider"] { height: 48px; width: 48px; border: 2px solid var(--primary); border-radius: 55% 45% 60% 40%; background: var(--honey-soft); box-shadow: var(--shadow-soft); }
 .urge-slider [role="slider"]::after { content: ""; display: block; width: 14px; height: 9px; margin: 16px auto; border: 1px solid var(--primary); border-radius: 80% 15% 80% 15%; transform: rotate(-25deg); }
 .breathing-pebble { border-radius: 46% 54% 42% 58%; }
-.meadow-flower { animation: meadow-sway 7s ease-in-out infinite; transform-origin: bottom center; }
+.meadow-flower { animation: meadow-sway var(--pb-motion-drift) var(--pb-ease-ghibli) infinite; transform-origin: bottom center; }
 @keyframes meadow-sway { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
-@keyframes companion-rest { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
-@keyframes companion-hello { 0%,100% { transform: rotate(0); } 35% { transform: rotate(-5deg); } 70% { transform: rotate(4deg); } }
+@keyframes companion-rest {
+  0%, 100% { transform: scale(1, 1) translateY(0); }
+  40.9091%, 50% { transform: scale(1.035, 1.025) translateY(-3px); }
+}
+@keyframes companion-settle {
+  0%, 82%, 100% { transform: rotate(0); }
+  91% { transform: rotate(-0.8deg); }
+}
 @media (min-width: 640px) { .sanctuary { aspect-ratio: 1.45; } }
-@media (prefers-reduced-motion: reduce) { .buddy-rest, .buddy-hello { animation: none; } }
+.quiet .grounding-card:active, .quiet .meadow-card:active, .quiet .pause-action:active, .quiet .texture-pebble:active, .quiet .pause-sheet button:active { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .grounding-card:active, .meadow-card:active, .pause-action:active, .texture-pebble:active, .pause-sheet button:active { transform: none; }
+}
