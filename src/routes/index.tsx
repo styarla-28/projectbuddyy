@@ -25,6 +25,10 @@ function Home() {
   const [activity, setActivity] = useState<GroundingActivity>(null);
   const [hour, setHour] = useState(12);
   useEffect(() => { setHour(new Date().getHours()); }, []);
+  useEffect(() => {
+    document.body.classList.toggle("quiet", quiet);
+    return () => document.body.classList.remove("quiet");
+  }, [quiet]);
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   return <div className={`paper-canvas min-h-dvh pb-28 ${quiet ? "quiet" : ""}`}>
     <main className="mx-auto w-full max-w-[480px] px-5 pt-7 sm:pt-9">
