@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 const steps = [
@@ -25,9 +26,9 @@ export function CheckInSheet({ open, onOpenChange }: { open: boolean; onOpenChan
             <SheetHeader className="text-left">
               <SheetTitle>Thank you for pausing</SheetTitle>
               <SheetDescription>Noticing is already a kind step. Let's try a slow breath together.</SheetDescription>
-              <button onClick={() => close(false)} className="mt-4 min-h-[52px] rounded-full bg-primary px-6 font-medium text-primary-foreground">
+              <Button onClick={() => close(false)} className="mt-4 min-h-[54px] rounded-full bg-primary px-6 font-medium text-primary-foreground">
                 Okay
-              </button>
+              </Button>
             </SheetHeader>
           ) : (
             <>
@@ -38,14 +39,14 @@ export function CheckInSheet({ open, onOpenChange }: { open: boolean; onOpenChan
               </SheetHeader>
               <div className="mt-4 grid grid-cols-2 gap-3 px-4">
                 {current.options.map((o) => (
-                  <button key={o} onClick={() => setStep(step + 1)} className="min-h-14 rounded-[18px] bg-secondary px-3 text-sm font-medium transition-colors hover:bg-primary-soft">
+                  <Button key={o} onClick={() => setStep(step + 1)} className="min-h-14 rounded-[18px] bg-secondary px-3 text-sm font-medium transition-colors hover:bg-primary-soft">
                     {o}
-                  </button>
+                  </Button>
                 ))}
               </div>
-              <button onClick={() => setStep(step + 1)} className="mx-auto mt-3 block min-h-11 px-4 text-sm text-muted-foreground underline-offset-4 hover:underline">
+              <Button onClick={() => setStep(step + 1)} className="mx-auto mt-3 block min-h-12 px-4 text-sm text-muted-foreground underline-offset-4 hover:underline">
                 Skip
-              </button>
+              </Button>
             </>
           )}
         </div>
