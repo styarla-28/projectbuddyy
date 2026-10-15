@@ -17,7 +17,7 @@ Rules: never diagnose, never mention medical conditions, never shame, never ment
 surface: "texture-pad" if tracing/raking a digital texture suits them, "breathing" if calming breath helps, "meadow" for hands-free rest, otherwise "none".`;
 
 export async function recommendExercise(feeling: string): Promise<SensoryExercise> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured yet.");
   const provider = createOpenAI({
     baseURL: "https://ai.gateway.lovable.dev/v1",
