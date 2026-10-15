@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Flower2, Leaf, Moon, Sprout, Sun, Volume2, VolumeX, Wind } from "lucide-react";
+import { ArrowUpRight, Flower2, Leaf, Moon, Sprout, Sun, VolumeX, Wind } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CozyRoom } from "@/components/buddy/CozyRoom";
 import { CheckInSheet } from "@/components/buddy/CheckInSheet";
 import { BottomNav } from "@/components/buddy/BottomNav";
 import { GroundingSheet, type GroundingActivity } from "@/components/buddy/GroundingSheet";
+import { useSensoryControls } from "@/components/buddy/SensoryProvider";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -20,23 +21,19 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const [quiet, setQuiet] = useState(false);
+  const { quiet, sensoryQuiet, reducedMotion, toggleQuiet } = useSensoryControls();
   const [checkIn, setCheckIn] = useState(false);
   const [activity, setActivity] = useState<GroundingActivity>(null);
   const [hour, setHour] = useState(12);
   useEffect(() => { setHour(new Date().getHours()); }, []);
-  useEffect(() => {
-    document.body.classList.toggle("quiet", quiet);
-    return () => document.body.classList.remove("quiet");
-  }, [quiet]);
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-  return <div className={`paper-canvas min-h-dvh pb-28 ${quiet ? "quiet" : ""}`}>
+  return <div className={`paper-canvas min-h-dvh pb-28 ${sensoryQuiet ? "quiet" : ""}`}>
     <main className="mx-auto w-full max-w-[480px] px-5 pt-7 sm:pt-9">
       <header className="flex items-start justify-between gap-3">
         <div><div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-primary"><Sprout className="h-4 w-4" strokeWidth={1.5} /><span>Project Buddy</span></div><h1 className="font-display text-[28px] leading-tight">{greeting}<span className="text-honey">.</span></h1><p className="mt-1.5 text-[13px] text-graphite">There's room to slow down here.</p></div>
-        <Button variant="ghost" onClick={() => setQuiet((q) => !q)} aria-pressed={quiet} aria-label={quiet ? "Turn quiet mode off" : "Turn quiet mode on"} className="mt-1 h-12 shrink-0 gap-2 rounded-full border border-border bg-card/60 px-3 text-xs text-graphite hover:bg-secondary aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{quiet ? <VolumeX /> : <Volume2 />}<span>Quiet {quiet ? "on" : "mode"}</span></Button>
+        <Button variant="ghost" onClick={toggleQuiet} aria-pressed={quiet} aria-label="Quiet Mode" aria-describedby={reducedMotion ? "sanctuary-status" : undefined} className="mt-1 h-12 shrink-0 gap-2 rounded-full border border-border bg-card/60 px-3 text-xs text-graphite hover:bg-secondary hover:text-graphite aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{sensoryQuiet ? <VolumeX /> : <Leaf />}<span>Quiet Mode</span></Button>
       </header>
-      <div className="mb-4 mt-5 flex items-center justify-between"><span className="inline-flex items-center gap-1.5 rounded-full bg-blush-soft px-3 py-1.5 text-[11px] font-medium text-graphite"><Sun className="h-3.5 w-3.5 text-blush" />Day 4 Calm</span><span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">{quiet ? <Moon className="h-3 w-3" /> : <Leaf className="h-3 w-3" />}{quiet ? "A quieter kind of company" : "Your own little sanctuary"}</span></div>
+      <div className="mb-4 mt-5 flex flex-wrap items-center justify-between gap-2"><span className="inline-flex items-center gap-1.5 rounded-full bg-blush-soft px-3 py-1.5 text-[11px] font-medium text-graphite"><Sun className="h-3.5 w-3.5 text-blush" />Day 4 Calm</span><span id="sanctuary-status" role="status" className={`flex items-center gap-1.5 text-[11px] ${sensoryQuiet ? "rounded-full bg-primary-soft px-3 py-1.5 text-primary-strong" : "text-muted-foreground"}`}>{sensoryQuiet ? <Moon className="h-3 w-3 shrink-0" /> : <Leaf className="h-3 w-3 shrink-0" />}{sensoryQuiet ? "Quiet Sanctuary Active" : "Your own little sanctuary"}</span></div>
       <CozyRoom />
       <Button onClick={() => setCheckIn(true)} className="pause-action mt-5 h-[54px] w-full gap-2.5 whitespace-normal rounded-full px-3 text-[14px] font-semibold shadow-soft hover:bg-primary-strong active:scale-[0.98]"><Leaf className="h-5 w-5" strokeWidth={1.5} />Feeling an urge? Pause for a moment</Button>
       <section className="mt-6" aria-labelledby="grounding-title">
@@ -50,6 +47,6 @@ function Home() {
       <p className="mt-5 text-center font-display text-xs italic text-muted-foreground">Small pauses count, too.</p>
     </main>
     <BottomNav />
-    <div className={quiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setActivity(null)} /></div>
+    <div className={sensoryQuiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setActivity(null)} /></div>
   </div>;
 }
