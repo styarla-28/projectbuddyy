@@ -95,7 +95,7 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
     onPointerDown={(e) => { e.currentTarget.setPointerCapture?.(e.pointerId); const s = { id: Math.random(), points: [pos(e)], surface }; active.current.set(e.pointerId, s); strokes.current.push(s); onTouch(); }}
     onPointerMove={(e) => {
       const s = active.current.get(e.pointerId); if (!s) return;
-      const p = pos(e); const prev = s.points[s.points.length - 1];
+      const p = pos(e); const prev = s.points[s.points.length - 1] ?? p;
       // Moss has a velvet resistance: the trail eases toward the finger.
       const k = surface === "moss" ? 0.35 : 1;
       s.points.push({ x: prev.x + (p.x - prev.x) * k, y: prev.y + (p.y - prev.y) * k, t: p.t });
