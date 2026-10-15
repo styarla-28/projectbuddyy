@@ -62,6 +62,7 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
       for (const s of strokes.current) {
         for (let i = 1; i < s.points.length; i++) {
           const a = s.points[i - 1], b = s.points[i];
+          if (!a || !b) continue;
           const life = fades ? Math.max(0, 1 - (now - b.t) / FADE_MS) : 1;
           if (life <= 0) continue;
           if (surface === "sand") {
