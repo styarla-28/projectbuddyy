@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Flower2, Leaf, Moon, Sprout, Sun, VolumeX, Wind } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,9 @@ export const Route = createFileRoute("/")({
 function Home() {
   const { quiet, sensoryQuiet, reducedMotion, toggleQuiet } = useSensoryControls();
   const [checkIn, setCheckIn] = useState(false);
-  const [activity, setActivity] = useState<GroundingActivity>(null);
+  const [activity, setRawActivity] = useState<GroundingActivity>(null);
+  const navigate = useNavigate();
+  const setActivity = (a: GroundingActivity) => { if (a === "texture") { setCheckIn(false); navigate({ to: "/texture" }); } else setRawActivity(a); };
   const [hour, setHour] = useState(12);
   useEffect(() => { setHour(new Date().getHours()); }, []);
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
@@ -47,6 +49,6 @@ function Home() {
       <p className="mt-5 text-center font-display text-xs italic text-muted-foreground">Small pauses count, too.</p>
     </main>
     <BottomNav />
-    <div className={sensoryQuiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setActivity(null)} /></div>
+    <div className={sensoryQuiet ? "quiet" : ""}><CheckInSheet open={checkIn} onOpenChange={setCheckIn} onBeginActivity={setActivity} /><GroundingSheet activity={activity} onClose={() => setRawActivity(null)} /></div>
   </div>;
 }
