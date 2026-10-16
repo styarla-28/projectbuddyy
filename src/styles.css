@@ -237,6 +237,6 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) { .meadow-drift, .meadow-flower { animation: none; } }
 
 /* Watercolor Wash: no bounce, chrome fades while gliding */
-.wash-screen { overscroll-behavior: none; touch-action: none; }
+.wash-screen { position: fixed; inset: 0; overscroll-behavior: none; touch-action: none; }
 .wash-chrome { transition: opacity 300ms ease; }
 .wash-chrome > * { pointer-events: auto; }
