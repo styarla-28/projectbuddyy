@@ -11,8 +11,8 @@ const mask = { maskImage: `url(${buddy})`, WebkitMaskImage: `url(${buddy})`, mas
 
 const ACCESSORY_ART: Record<string, { src: string; style: CSSProperties }> = {
   "Clover Sprout": { src: clover, style: { left: "55%", top: "12%", width: "20%", transform: "rotate(18deg)" } },
-  "Acorn Cap": { src: acorn, style: { left: "35%", top: "15%", width: "30%" } },
-  "Teacup Hat": { src: teacup, style: { left: "30%", top: "15%", width: "42%" } },
+  "Acorn Cap": { src: acorn, style: { left: "37%", top: "9%", width: "26%" } },
+  "Teacup Hat": { src: teacup, style: { left: "32%", top: "10%", width: "38%" } },
   "Dewdrop Pin": { src: dewdrop, style: { left: "60%", top: "56%", width: "9%", transform: "rotate(-12deg)" } },
   "Linen Scarf": { src: scarf, style: { left: "27%", top: "53%", width: "48%" } },
 };
