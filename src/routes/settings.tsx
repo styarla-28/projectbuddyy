@@ -86,7 +86,7 @@ function SettingsPage() {
           <div className="p-3 pt-0">
             <AlertDialog>
               <AlertDialogTrigger asChild><Button variant="outline" className="h-12 w-full rounded-full border-blush text-blush hover:bg-blush-soft hover:text-blush"><Trash2 />Clear All Reflections & History</Button></AlertDialogTrigger>
-              <AlertDialogContent className="rounded-3xl">
+              <AlertDialogContent className="w-[calc(100%-2rem)] rounded-3xl">
                 <AlertDialogHeader>
                   <AlertDialogTitle className="font-display">Clear your reflections?</AlertDialogTitle>
                   <AlertDialogDescription>This will erase your saved journal entries on this phone. Are you sure?</AlertDialogDescription>
