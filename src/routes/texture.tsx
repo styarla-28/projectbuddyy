@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BubbleWrap, TraceCanvas, useSoftFeedback, type Surface } from "@/components/buddy/TexturePad";
 import { GroundingSheet, type GroundingActivity } from "@/components/buddy/GroundingSheet";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
+import { bloom } from "@/lib/meadow";
 
 export const Route = createFileRoute("/texture")({
   head: () => ({ meta: [
