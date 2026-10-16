@@ -235,3 +235,8 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 .quiet .meadow-drift, .quiet .meadow-flower { animation: none; }
 .quiet .meadow-reflection, .quiet .meadow-bloom { animation-duration: 150ms; }
 @media (prefers-reduced-motion: reduce) { .meadow-drift, .meadow-flower { animation: none; } }
+
+/* Watercolor Wash: no bounce, chrome fades while gliding */
+.wash-screen { overscroll-behavior: none; touch-action: none; }
+.wash-chrome { transition: opacity 300ms ease; }
+.wash-chrome > * { pointer-events: auto; }
