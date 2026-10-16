@@ -9,13 +9,13 @@ type Ctx = {
   cameraOptIn: boolean; setCameraOptIn: (on: boolean) => void;
 };
 const noop = () => {};
-const SensoryContext = createContext<Ctx>({ quiet: false, reducedMotion: false, systemReducedMotion: false, sensoryQuiet: false, toggleQuiet: noop, setReducedMotion: noop, haptics: true, setHaptics: noop, cameraOptIn: false, setCameraOptIn: noop });
+const SensoryContext = createContext<Ctx>({ quiet: false, reducedMotion: false, systemReducedMotion: false, sensoryQuiet: false, toggleQuiet: noop, setReducedMotion: noop, haptics: false, setHaptics: noop, cameraOptIn: false, setCameraOptIn: noop });
 
 export function SensoryProvider({ children }: { children: ReactNode }) {
   const [quiet, setQuiet] = useState(false);
   const [systemReducedMotion, setSystem] = useState(false);
   const [motion, setMotion] = useState<boolean | null>(null); // null = follow system
-  const [haptics, setHaptics] = useState(true);
+  const [haptics, setHaptics] = useState(false);
   const [cameraOptIn, setCameraOptIn] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const reducedMotion = motion ?? systemReducedMotion;
