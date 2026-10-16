@@ -19,12 +19,12 @@ function Accessory({ name }: { name: string }) {
 /** The companion art tinted with the chosen body wash, plus the chosen accessory. Moss green shows the original painting. */
 export function CompanionFigure({ color, accessory, className = "", imgClassName = "", alt = "" }: { color: string; accessory: string; className?: string; imgClassName?: string; alt?: string }) {
   const tinted = color.toLowerCase() !== DEFAULT_COMPANION.color.toLowerCase();
-  return <span className={`relative isolate block ${className}`}>
+  return <span className={`relative isolate block ${className}`}><span className="absolute bottom-0 left-1/2 aspect-square h-full max-w-full -translate-x-1/2">
     <img src={buddy} alt={alt} width={1024} height={1024} className={`absolute inset-0 h-full w-full object-contain object-bottom ${imgClassName}`} />
     {tinted && <>
       <span aria-hidden className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "color" }} />
       <span aria-hidden className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "soft-light", opacity: 0.5 }} />
     </>}
     <Accessory name={accessory} />
-  </span>;
+  </span></span>;
 }
