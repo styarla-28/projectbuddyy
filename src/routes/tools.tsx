@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, Droplet, Eye, Hand, Heart, Palette, Brush, Sprout, Volume2, VolumeX, Waves } from "lucide-react";
+import { ArrowLeft, Heart, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { BottomNav } from "@/components/buddy/BottomNav";
@@ -9,6 +9,7 @@ import { MirrorSanctuary } from "@/components/buddy/MirrorSanctuary";
 import { StreamBreathing, StepsActivity, Soundscapes, WatercolorSorter, groundingSteps, oilSteps, stretchSteps } from "@/components/buddy/ToolActivities";
 
 export const Route = createFileRoute("/tools")({
+  validateSearch: (search: Record<string, unknown>): { open?: ToolId } => (TOOL_IDS.includes(search["open"] as ToolId) ? { open: search["open"] as ToolId } : {}),
   head: () => ({
     meta: [
       { title: "Coping Sanctuary · Project Buddy" },
@@ -22,21 +23,8 @@ export const Route = createFileRoute("/tools")({
   component: Tools,
 });
 
-type Cat = "relief" | "hands" | "distract";
-type ToolId = "breathing" | "texture" | "wash" | "grounding" | "oil" | "stretch" | "sound" | "sorter";
-type Filter = Cat | "all" | "favorites";
-const FAVORITES_KEY = "pb-favorite-tools";
-const filters: { id: Filter; label: string }[] = [{ id: "all", label: "All" }, { id: "favorites", label: "Favorites" }, { id: "relief", label: "Quick Relief" }, { id: "hands", label: "Hands Care" }, { id: "distract", label: "Distract & Ground" }];
-const tools: { id: ToolId; cat: Cat; title: string; tag: string; text: string; icon: typeof Waves; tint: string; ink: string }[] = [
-  { id: "breathing", cat: "relief", title: "Stream Breathing", tag: "30s · 1m · 3m", text: "Slowing heart rate and relaxing nervous tension.", icon: Waves, tint: "bg-stream-soft", ink: "text-stream" },
-  { id: "texture", cat: "relief", title: "Tactile Texture Pad", tag: "Open-ended", text: "Safe sensory surface for tracing, gliding, and soft pops.", icon: Sprout, tint: "bg-honey-soft", ink: "text-honey" },
-  { id: "wash", cat: "relief", title: "Watercolor Wash", tag: "Open-ended", text: "Glide fingers through soft pigment that gently fades away.", icon: Brush, tint: "bg-stream-soft", ink: "text-stream" },
-  { id: "grounding", cat: "relief", title: "5-4-3-2-1 Sensory Grounding", tag: "2 min", text: "Reconnect gently with the physical room around you.", icon: Eye, tint: "bg-primary-soft", ink: "text-primary" },
-  { id: "oil", cat: "hands", title: "Warm Oil & Lotion Ritual", tag: "Self-care guide", text: "Gentle circular touch with moisturizer or cuticle balm.", icon: Droplet, tint: "bg-blush-soft", ink: "text-blush" },
-  { id: "stretch", cat: "hands", title: "Fingers & Wrist Stretches", tag: "1 min", text: "Release clawed tension in fingers, palms, and forearms.", icon: Hand, tint: "bg-primary-soft", ink: "text-primary" },
-  { id: "sound", cat: "distract", title: "Cozy River Soundscapes", tag: "Rain · Stream · Chimes", text: "Soft loops to settle a busy mind.", icon: Volume2, tint: "bg-stream-soft", ink: "text-stream" },
-  { id: "sorter", cat: "distract", title: "Gentle Watercolor Sorter", tag: "No timer", text: "Arrange soft watercolor tiles in harmony.", icon: Palette, tint: "bg-honey-soft", ink: "text-honey" },
-];
+import { FAVORITES_KEY, filters, loadFavorites, tools, TOOL_IDS, type Cat, type Filter, type ToolId } from "@/lib/tools";
+
 const sections: { cat: Cat; title: string }[] = [{ cat: "relief", title: "In-the-Moment Relief" }, { cat: "hands", title: "Hands & Body Care" }, { cat: "distract", title: "Distraction & Soft Focus" }];
 
 function Tools() {
@@ -46,11 +34,15 @@ function Tools() {
   const [open, setOpen] = useState<ToolId | null>(null);
   const [favorites, setFavorites] = useState<ToolId[]>([]);
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(FAVORITES_KEY);
-      if (raw) setFavorites(JSON.parse(raw) as ToolId[]);
-    } catch { /* fresh start */ }
+    setFavorites(loadFavorites());
   }, []);
+  const { open: requested } = Route.useSearch();
+  useEffect(() => {
+    if (!requested) return;
+    navigate({ to: "/tools", search: {}, replace: true });
+    if (requested === "texture" || requested === "wash") navigate({ to: requested === "texture" ? "/texture" : "/wash" });
+    else setOpen(requested);
+  }, [requested]); // eslint-disable-line react-hooks/exhaustive-deps
   const toggleFavorite = (id: ToolId) => {
     setFavorites((prev) => {
       const next = prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id];
