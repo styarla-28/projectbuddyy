@@ -29,6 +29,7 @@ function WashPage() {
   quietRef.current = sensoryQuiet;
   const [faded, setFaded] = useState(false);
   const fadeTimer = useRef<number | undefined>(undefined);
+  const paintedRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -59,6 +60,7 @@ function WashPage() {
 
     const down = (e: PointerEvent) => {
       e.preventDefault();
+      paintedRef.current = true;
       canvas.setPointerCapture?.(e.pointerId);
       const p = pos(e);
       touches.set(e.pointerId, { ...p, t: performance.now(), still: performance.now(), dab: add(p.x, p.y, 18, 0.42) });
