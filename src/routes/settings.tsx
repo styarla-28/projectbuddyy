@@ -41,8 +41,15 @@ function ToggleRow({ id, label, text, checked, onChange }: { id: string; label: 
   return <div className="flex items-center gap-4 rounded-2xl py-3"><div className="min-w-0 flex-1"><label htmlFor={id} className="font-semibold">{label}</label><p id={`${id}-d`} className="mt-0.5 text-sm text-graphite">{text}</p></div><Switch id={id} aria-label={label} aria-describedby={`${id}-d`} checked={checked} onCheckedChange={onChange} className="data-[state=checked]:bg-primary" /></div>;
 }
 
-function Avatar({ color, size = 40 }: { color: string; size?: number }) {
-  return <span aria-hidden className="relative grid shrink-0 place-items-center overflow-hidden rounded-full border" style={{ width: size, height: size, background: `color-mix(in oklab, ${color} 45%, var(--card))` }}><img src={buddy} alt="" className="animate-breathe w-[85%]" style={{ transformOrigin: "bottom center" }} /></span>;
+function Avatar({ color, size = 40, ring = true }: { color: string; size?: number; ring?: boolean }) {
+  const mask = { maskImage: `url(${buddy})`, WebkitMaskImage: `url(${buddy})`, maskSize: "contain", WebkitMaskSize: "contain", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center bottom", WebkitMaskPosition: "center bottom" } as const;
+  return <span aria-hidden className={`relative grid shrink-0 place-items-center overflow-hidden ${ring ? "rounded-full border bg-background" : ""}`} style={{ width: size, height: size }}>
+    <span className="animate-breathe relative isolate block h-[85%] w-[85%]" style={{ transformOrigin: "bottom center" }}>
+      <img src={buddy} alt="" className="absolute inset-0 h-full w-full object-contain object-bottom" />
+      <span className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "color" }} />
+      <span className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "soft-light", opacity: 0.5 }} />
+    </span>
+  </span>;
 }
 
 function SettingsPage() {
@@ -93,6 +100,12 @@ function SettingsPage() {
                 const on = companion.accessory === a;
                 return <button key={a} type="button" role="radio" aria-checked={on} onClick={() => setCompanion({ accessory: a })} className={`min-h-11 rounded-full border px-4 text-sm transition-colors ${on ? "border-2 border-foreground bg-honey-soft font-semibold" : "bg-background"}`}>{a}</button>;
               })}
+            </div>
+
+            <div className="mt-6 flex flex-col items-center rounded-3xl border bg-background p-4">
+              <Avatar color={companion.color} size={160} ring={false} />
+              <p className="mt-2 font-display text-lg font-semibold">{companion.name.trim() || "Buddy"}</p>
+              <p className="text-sm text-graphite">{washName(companion.color)} · {companion.accessory}</p>
             </div>
           </Group>
 
