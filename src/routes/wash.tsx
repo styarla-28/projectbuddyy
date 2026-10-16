@@ -21,7 +21,7 @@ export const Route = createFileRoute("/wash")({
 type Dab = { x: number; y: number; r: number; color: string; born: number; alpha: number };
 type Touch = { x: number; y: number; t: number; dab: Dab; still: number };
 
-function WashPage() {
+export function WashPage() {
   const navigate = useNavigate();
   const { sensoryQuiet } = useSensoryControls();
   const canvasRef = useRef<HTMLCanvasElement>(null);
