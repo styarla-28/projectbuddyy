@@ -35,7 +35,7 @@ function TexturePage() {
   const [clearKey, setClearKey] = useState(0);
   const [activity, setActivity] = useState<GroundingActivity>(null);
   const feedback = useSoftFeedback(sound, haptics, sensoryQuiet);
-  const home = () => navigate({ to: "/" });
+  const home = () => { bloom(); navigate({ to: "/" }); };
   const surfaceBg = SURFACES.find((s) => s.id === surface)?.tint ?? "bg-stream-soft border-stream/30";
 
   return <div className={`paper-canvas flex min-h-dvh flex-col bg-background text-foreground ${evening ? "pb-evening" : ""} ${sensoryQuiet ? "quiet" : ""}`}>
