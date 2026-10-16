@@ -210,3 +210,10 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
   --color-stream: var(--stream); --color-stream-soft: var(--stream-soft); --color-honey: var(--honey);
   --color-honey-soft: var(--honey-soft); --color-wood: var(--wood); --color-accent: var(--secondary); --color-accent-foreground: var(--foreground);
 }
+:root { --journal-paper: oklch(0.975 0.018 90); --journal-rule: oklch(0.915 0.02 88); --journal-margin: oklch(0.905 0.03 20); }
+@theme inline { --font-hand: "Caveat", "Patrick Hand", cursive; --color-journal-paper: var(--journal-paper); }
+.journal-paper { background-color: var(--journal-paper); background-image: linear-gradient(90deg, transparent 35px, var(--journal-margin) 35px, var(--journal-margin) 37px, transparent 37px), repeating-linear-gradient(transparent, transparent 31px, var(--journal-rule) 31px, var(--journal-rule) 32px); background-attachment: local; }
+.journal-entry { animation: journal-fade 150ms ease-out; }
+@keyframes journal-fade { from { opacity: 0; } to { opacity: 1; } }
+.quiet .journal-entry { animation: journal-fade 150ms ease-out !important; }
+@media (prefers-reduced-motion: reduce) { .journal-entry { animation: journal-fade 150ms ease-out !important; } }
