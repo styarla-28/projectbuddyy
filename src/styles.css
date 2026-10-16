@@ -251,3 +251,4 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 @keyframes mirror-anchor { 0%, 100% { opacity: 0.5; } 45% { opacity: 1; } }
 .quiet .mirror-buddy, .quiet .mirror-anchor, body.quiet .mirror-buddy, body.quiet .mirror-anchor { animation: none; }
 @media (prefers-reduced-motion: reduce) { .mirror-buddy, .mirror-anchor { animation: none; } .mirror-fade { animation-duration: 150ms; } }
+.settings-group { border-color: oklch(0.86 0.022 90); }
