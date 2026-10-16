@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
+import { bloom } from "@/lib/meadow";
 import { washLife, PALETTE, pigmentAt } from "@/lib/wash";
 
 export const Route = createFileRoute("/wash")({
