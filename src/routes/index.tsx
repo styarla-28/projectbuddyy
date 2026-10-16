@@ -27,7 +27,7 @@ function Home() {
   const [guide, setGuide] = useState(false);
   const [activity, setRawActivity] = useState<GroundingActivity>(null);
   const navigate = useNavigate();
-  const setActivity = (a: GroundingActivity) => { if (a === "texture") { setCheckIn(false); navigate({ to: "/texture" }); } else setRawActivity(a); };
+  const setActivity = (a: GroundingActivity) => { if (a === "texture") { setCheckIn(false); navigate({ to: "/texture" }); } else if (a === "meadow") { setCheckIn(false); navigate({ to: "/meadow" }); } else setRawActivity(a); };
   const [hour, setHour] = useState(12);
   useEffect(() => { setHour(new Date().getHours()); }, []);
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
