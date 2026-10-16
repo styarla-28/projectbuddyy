@@ -19,6 +19,6 @@
 - [x] Tools Sanctuary: filters, 3 categories, 7 tools in exit-able sheets, quiet-muted soundscapes.
 
 # Application responsiveness
-- [ ] Audit every page and activity at phone, tablet, desktop, and short landscape sizes.
-- [ ] Fix content wrapping, touch controls, canvas resizing, and sheet sizing.
-- [ ] Verify interactions and existing tests after layout updates.
+- [x] Audit every page and activity at phone, tablet, desktop, and short landscape sizes.
+- [x] Fix content wrapping, touch controls, canvas resizing, and sheet sizing.
+- [x] Verify interactions and existing tests after layout updates.
