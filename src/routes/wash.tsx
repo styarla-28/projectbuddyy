@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
+import { bloom } from "@/lib/meadow";
 import { washLife, PALETTE, pigmentAt } from "@/lib/wash";
 
 export const Route = createFileRoute("/wash")({
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/wash")({
 type Dab = { x: number; y: number; r: number; color: string; born: number; alpha: number };
 type Touch = { x: number; y: number; t: number; dab: Dab; still: number };
 
-function WashPage() {
+export function WashPage() {
   const navigate = useNavigate();
   const { sensoryQuiet } = useSensoryControls();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -28,6 +29,7 @@ function WashPage() {
   quietRef.current = sensoryQuiet;
   const [faded, setFaded] = useState(false);
   const fadeTimer = useRef<number | undefined>(undefined);
+  const paintedRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -58,6 +60,7 @@ function WashPage() {
 
     const down = (e: PointerEvent) => {
       e.preventDefault();
+      paintedRef.current = true;
       canvas.setPointerCapture?.(e.pointerId);
       const p = pos(e);
       touches.set(e.pointerId, { ...p, t: performance.now(), still: performance.now(), dab: add(p.x, p.y, 18, 0.42) });
@@ -100,6 +103,7 @@ function WashPage() {
       ctx.globalCompositeOperation = "multiply";
       for (let i = dabs.length - 1; i >= 0; i--) {
         const d = dabs[i];
+        if (!d) continue;
         const life = washLife(now - d.born, quiet);
         if (life <= 0) { dabs.splice(i, 1); continue; }
         const g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r);
@@ -125,7 +129,7 @@ function WashPage() {
   return <div className="wash-screen paper-canvas fixed inset-0 overflow-hidden bg-background text-foreground">
     <canvas ref={canvasRef} className="absolute inset-0 h-full w-full touch-none" role="img" aria-label="Watercolor wash surface. Glide or hold your fingers anywhere; colors gently fade on their own." />
     <header className={`wash-chrome pointer-events-none absolute inset-x-0 top-0 flex min-h-14 items-center gap-2 px-3 pt-[env(safe-area-inset-top)] ${faded ? "opacity-15" : "opacity-100"}`}>
-      <Button variant="ghost" size="icon" aria-label="Return to Tools" onClick={() => navigate({ to: "/tools" })} className="pointer-events-auto h-12 w-12 shrink-0 rounded-full border border-border bg-card/70"><ArrowLeft /></Button>
+      <Button variant="ghost" size="icon" aria-label="Return to Tools" onClick={() => { if (paintedRef.current) bloom(); navigate({ to: "/tools" }); }} className="pointer-events-auto h-12 w-12 shrink-0 rounded-full border border-border bg-card/70"><ArrowLeft /></Button>
       <div className="min-w-0"><h1 className="font-display text-lg leading-tight">Watercolor Wash</h1><p className="text-xs text-graphite">Gliding touches, gentle release</p></div>
     </header>
     <span className="sr-only">{PALETTE.length} soft pigments cycle on their own.</span>

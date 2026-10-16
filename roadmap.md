@@ -29,3 +29,8 @@
 
 ## Mood tracker
 - [x] Mood check-in + two-week history on Reflections, local-only storage
+
+## Watercolor Wash
+- [x] Full-screen wash page with multi-finger painting, hold-bloom, self-fading strokes (verified with mouse).
+- [x] Finishing a wash session (canvas touched, then "Return to Tools") blooms a wildflower like the other tools.
+
