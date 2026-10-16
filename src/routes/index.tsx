@@ -8,7 +8,7 @@ import { BottomNav } from "@/components/buddy/BottomNav";
 import { GroundingSheet, type GroundingActivity } from "@/components/buddy/GroundingSheet";
 import { SensoryGuideSheet } from "@/components/buddy/SensoryGuideSheet";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
-import { MirrorView } from "@/components/buddy/MirrorView";
+import { MirrorSanctuary } from "@/components/buddy/MirrorSanctuary";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -40,7 +40,7 @@ function Home() {
       </header>
       <div className="mb-4 mt-5 flex flex-wrap items-center justify-between gap-2"><span className="inline-flex items-center gap-1.5 rounded-full bg-blush-soft px-3 py-1.5 text-[11px] font-medium text-graphite"><Sun className="h-3.5 w-3.5 text-blush" />Day 4 Calm</span><span id="sanctuary-status" role="status" className={`flex items-center gap-1.5 text-[11px] ${sensoryQuiet ? "rounded-full bg-primary-soft px-3 py-1.5 text-primary-strong" : "text-muted-foreground"}`}>{sensoryQuiet ? <Moon className="h-3 w-3 shrink-0" /> : <Leaf className="h-3 w-3 shrink-0" />}{sensoryQuiet ? "Quiet Sanctuary Active" : "Your own little sanctuary"}</span></div>
       <CozyRoom />
-      <MirrorView />
+      <MirrorSanctuary />
       <Button onClick={() => setCheckIn(true)} className="pause-action mt-5 h-[54px] w-full gap-2.5 whitespace-normal rounded-full px-3 text-[14px] font-semibold shadow-soft hover:bg-primary-strong active:scale-[0.98]"><Leaf className="h-5 w-5" strokeWidth={1.5} />Feeling an urge? Pause for a moment</Button>
       <section className="mt-6" aria-labelledby="grounding-title">
         <div className="mb-3 flex items-center justify-between"><h2 id="grounding-title" className="font-display text-lg">A little grounding</h2><span className="text-[11px] text-muted-foreground">At your own pace</span></div>

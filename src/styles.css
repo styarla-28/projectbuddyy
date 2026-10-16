@@ -240,3 +240,14 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 .wash-screen { position: fixed; inset: 0; overscroll-behavior: none; touch-action: none; }
 .wash-chrome { transition: opacity 300ms ease; }
 .wash-chrome > * { pointer-events: auto; }
+
+/* Mirror Sanctuary */
+.mirror-screen { touch-action: none; }
+.mirror-soft { filter: contrast(0.88) brightness(1.02) blur(1.5px) saturate(0.85); }
+.mirror-fade { animation: mirror-fade 250ms ease both; }
+.mirror-buddy { animation: breathe var(--pb-motion-breath) var(--pb-ease-breathe) infinite; transform-origin: bottom center; }
+.mirror-anchor { animation: mirror-anchor var(--pb-motion-breath) var(--pb-ease-breathe) infinite; }
+@keyframes mirror-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mirror-anchor { 0%, 100% { opacity: 0.5; } 45% { opacity: 1; } }
+.quiet .mirror-buddy, .quiet .mirror-anchor, body.quiet .mirror-buddy, body.quiet .mirror-anchor { animation: none; }
+@media (prefers-reduced-motion: reduce) { .mirror-buddy, .mirror-anchor { animation: none; } .mirror-fade { animation-duration: 150ms; } }

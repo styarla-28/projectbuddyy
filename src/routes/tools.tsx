@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { BottomNav } from "@/components/buddy/BottomNav";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
+import { MirrorSanctuary } from "@/components/buddy/MirrorSanctuary";
 import { StreamBreathing, StepsActivity, Soundscapes, WatercolorSorter, groundingSteps, oilSteps, stretchSteps } from "@/components/buddy/ToolActivities";
 
 export const Route = createFileRoute("/tools")({
@@ -86,6 +87,7 @@ function Tools() {
           </div>)}</div>
         </section>;
       })}
+      {filter === "all" && <MirrorSanctuary />}
       {filter === "favorites" && favorites.length === 0 && <p className="mt-8 rounded-3xl border border-border bg-card p-6 text-center text-sm text-graphite shadow-soft">No favorites yet. Tap the little heart on any tool you love, and it will wait for you here.</p>}
       <p className="mt-6 text-center font-display text-xs italic text-muted-foreground">Every pause is a kind one.</p>
     </main>
