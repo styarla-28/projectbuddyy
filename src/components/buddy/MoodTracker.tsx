@@ -118,7 +118,8 @@ export function MoodTracker() {
                   </span>
                   <span className="text-[10px] text-muted-foreground">{new Date(e.createdAt).toLocaleDateString("en-US", { month: "numeric", day: "numeric" })}</span>
                 </li>
-              ))}
+                );
+              })}
             </ol>
             <p className="mt-4 text-xs text-muted-foreground">Feelings ebb and flow like weather — there is no score to keep, only noticing.</p>
           </>
