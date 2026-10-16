@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BubbleWrap, TraceCanvas, useSoftFeedback, type Surface } from "@/components/buddy/TexturePad";
 import { GroundingSheet, type GroundingActivity } from "@/components/buddy/GroundingSheet";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
+import { bloom } from "@/lib/meadow";
 
 export const Route = createFileRoute("/texture")({
   head: () => ({ meta: [
@@ -35,7 +36,7 @@ function TexturePage() {
   const [clearKey, setClearKey] = useState(0);
   const [activity, setActivity] = useState<GroundingActivity>(null);
   const feedback = useSoftFeedback(sound, haptics, sensoryQuiet);
-  const home = () => navigate({ to: "/" });
+  const home = () => { bloom(); navigate({ to: "/" }); };
   const surfaceBg = SURFACES.find((s) => s.id === surface)?.tint ?? "bg-stream-soft border-stream/30";
 
   return <div className={`paper-canvas flex min-h-dvh flex-col bg-background text-foreground ${evening ? "pb-evening" : ""} ${sensoryQuiet ? "quiet" : ""}`}>

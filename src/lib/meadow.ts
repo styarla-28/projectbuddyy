@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 const KEY = "pb-meadow-blooms";
 
 /** Lifetime wildflower count. Only ever grows; never decreases or resets. */
@@ -11,6 +13,15 @@ export function readBlooms(): number {
 export function addBloom(): number {
   const next = readBlooms() + 1;
   try { localStorage.setItem(KEY, String(next)); } catch { /* storage unavailable */ }
+  return next;
+}
+
+/** Grow the meadow after a finished pause, breathing, texture or tool session. */
+export function bloom(): number {
+  const next = addBloom();
+  toast("A wildflower bloomed in your meadow.", {
+    description: "Thank you for caring for yourself in this moment.",
+  });
   return next;
 }
 

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { breathingMoment } from "@/components/buddy/breathing";
+import { bloom } from "@/lib/meadow";
 
 export function StreamBreathing() {
   const [length, setLength] = useState(60);
@@ -14,6 +15,8 @@ export function StreamBreathing() {
   }, [running]);
   useEffect(() => { if (seconds >= length) setRunning(false); }, [seconds, length]);
   const done = seconds >= length;
+  const bloomedRef = useRef(false);
+  useEffect(() => { if (done && !bloomedRef.current) { bloomedRef.current = true; bloom(); } }, [done]);
   const moment = breathingMoment(seconds, true);
   return <div className="flex flex-col items-center gap-5 py-4">
     <div className="flex gap-2" role="group" aria-label="Length">{[30, 60, 180].map((l) => <Button key={l} variant="ghost" aria-pressed={length === l} onClick={() => { setLength(l); setSeconds(0); setRunning(false); }} className={`min-h-12 rounded-full border px-4 ${length === l ? "border-stream bg-stream-soft text-foreground" : "border-border bg-card text-graphite"}`}>{l === 30 ? "30s" : `${l / 60}m`}</Button>)}</div>
@@ -27,6 +30,8 @@ export function StreamBreathing() {
 
 function Steps({ steps }: { steps: { title: string; text: string }[] }) {
   const [i, setI] = useState(0);
+  const bloomedRef = useRef(false);
+  useEffect(() => { if (i === steps.length - 1 && !bloomedRef.current) { bloomedRef.current = true; bloom(); } }, [i, steps.length]);
   const s = steps[i]!;
   return <div className="py-4">
     <p className="text-xs text-muted-foreground">{i + 1} of {steps.length}</p>
@@ -64,7 +69,12 @@ export function Soundscapes({ muted }: { muted: boolean }) {
   const [playing, setPlaying] = useState<Loop | null>(null);
   const ctxRef = useRef<AudioContext | null>(null);
   const stopRef = useRef<(() => void) | null>(null);
-  const stop = () => { stopRef.current?.(); stopRef.current = null; setPlaying(null); };
+  const startedRef = useRef(0);
+  const stop = () => {
+    const wasPlaying = stopRef.current !== null;
+    stopRef.current?.(); stopRef.current = null; setPlaying(null);
+    if (wasPlaying && Date.now() - startedRef.current >= 30000) bloom();
+  };
   useEffect(() => { if (muted) stop(); }, [muted]);
   useEffect(() => () => { stopRef.current?.(); void ctxRef.current?.close(); }, []);
   const play = (loop: Loop) => {
@@ -93,6 +103,7 @@ export function Soundscapes({ muted }: { muted: boolean }) {
       src.connect(f).connect(out); src.start();
       stopRef.current = () => { src.stop(); out.disconnect(); };
     }
+    startedRef.current = Date.now();
     setPlaying(loop);
   };
   const loops: { id: Loop; label: string }[] = [{ id: "rain", label: "Rain on Studio Roof" }, { id: "stream", label: "Forest Stream" }, { id: "chimes", label: "Soft Wind Chimes" }];
@@ -108,6 +119,9 @@ export function WatercolorSorter() {
   const [order, setOrder] = useState(initial);
   const [picked, setPicked] = useState<number | null>(null);
   const sorted = order.every((v, i) => v === i);
+  const bloomedRef = useRef(false);
+  useEffect(() => { if (sorted && picked === null && order !== initial) { if (!bloomedRef.current) { bloomedRef.current = true; bloom(); } } }, [sorted, picked, order, initial]);
+  useEffect(() => { if (!sorted) bloomedRef.current = false; }, [sorted]);
   const tap = (pos: number) => {
     if (pos === 0 || pos === 8) return;
     if (picked === null) return setPicked(pos);
