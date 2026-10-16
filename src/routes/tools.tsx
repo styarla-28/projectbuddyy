@@ -40,14 +40,29 @@ const sections: { cat: Cat; title: string }[] = [{ cat: "relief", title: "In-the
 function Tools() {
   const { sensoryQuiet } = useSensoryControls();
   const navigate = useNavigate();
-  const [filter, setFilter] = useState<Cat | "all">("all");
+  const [filter, setFilter] = useState<Filter>("all");
   const [open, setOpen] = useState<ToolId | null>(null);
+  const [favorites, setFavorites] = useState<ToolId[]>([]);
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(FAVORITES_KEY);
+      if (raw) setFavorites(JSON.parse(raw) as ToolId[]);
+    } catch { /* fresh start */ }
+  }, []);
+  const toggleFavorite = (id: ToolId) => {
+    setFavorites((prev) => {
+      const next = prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id];
+      try { window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+      return next;
+    });
+  };
   const tool = tools.find((t) => t.id === open);
   const launch = (id: ToolId) => id === "texture" ? navigate({ to: "/texture" }) : setOpen(id);
   const body: Record<Exclude<ToolId, "texture">, ReactNode> = {
     breathing: <StreamBreathing />, grounding: <StepsActivity steps={groundingSteps} />, oil: <StepsActivity steps={oilSteps} />,
     stretch: <StepsActivity steps={stretchSteps} />, sound: <Soundscapes muted={sensoryQuiet} />, sorter: <WatercolorSorter />,
   };
+  const visible = (t: (typeof tools)[number]) => filter === "all" || (filter === "favorites" ? favorites.includes(t.id) : t.cat === filter);
 
   return <div className={`paper-canvas min-h-dvh pb-28 ${sensoryQuiet ? "quiet" : ""}`}>
     <main className="mx-auto w-full max-w-[480px] px-5 pt-7 sm:pt-9">
