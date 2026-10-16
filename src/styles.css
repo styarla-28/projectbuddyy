@@ -73,6 +73,8 @@
   --color-blush: var(--blush);
   --color-blush-soft: var(--blush-soft);
   --color-graphite: var(--graphite);
+  --color-olive: var(--olive);
+  --color-olive-soft: var(--olive-soft);
   --shadow-soft: var(--shadow-soft);
 }
 
@@ -107,6 +109,8 @@
   --honey-soft: oklch(0.968 0.03 88);
   --blush: oklch(0.656 0.091 25);
   --blush-soft: oklch(0.942 0.022 43);
+  --olive: oklch(0.68 0.09 120);
+  --olive-soft: oklch(0.86 0.07 118);
   --sky: var(--stream-soft);
   --wood: var(--honey);
   --destructive: var(--graphite);
@@ -162,6 +166,10 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 .buddy-settle { animation: companion-settle var(--pb-motion-micro) var(--pb-ease-ghibli) infinite; transform-origin: bottom center; }
 .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
 .nav-link[data-status="active"] .nav-icon { background: var(--primary-soft); }
+.bottom-nav .nav-link:hover { color: var(--primary-strong); background-color: transparent; }
+.bottom-nav .nav-link:hover .nav-icon { background: var(--olive-soft); }
+.bottom-nav .nav-link:focus-visible { color: var(--primary-strong); }
+.bottom-nav .nav-link:focus-visible .nav-icon { background: var(--olive-soft); }
 .grounding-card, .meadow-card, .pause-action, .texture-pebble, .pause-sheet button { transition: transform 180ms var(--pb-ease-ghibli), background-color 180ms var(--pb-ease-ghibli), border-color 180ms var(--pb-ease-ghibli); }
 .pb-sheet[data-state], .pb-sheet-overlay[data-state] { animation-duration: 180ms; animation-timing-function: var(--pb-ease-ghibli); transition-duration: 180ms; transition-timing-function: var(--pb-ease-ghibli); }
 .grounding-card:active, .meadow-card:active, .texture-pebble:active { transform: scale(.97); }
