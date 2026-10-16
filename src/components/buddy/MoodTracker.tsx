@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Flower2, Lock, Sparkles } from "lucide-react";
+import { Cloud, CloudRain, CloudSun, Flower2, Leaf, Lock, Sparkles, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   MOODS,
@@ -7,12 +7,14 @@ import {
   addMood,
   averageMood,
   loadMoods,
-  moodEmoji,
   moodLabel,
   recentMoods,
   saveMoods,
   type MoodEntry,
 } from "@/lib/mood";
+
+const MOOD_ICONS: Record<number, LucideIcon> = { 1: CloudRain, 2: Cloud, 3: Leaf, 4: CloudSun, 5: Flower2 };
+const moodIcon = (value: number) => MOOD_ICONS[value] ?? Leaf;
 import { dateStamp } from "@/lib/journal";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +52,7 @@ export function MoodTracker() {
       <div role="radiogroup" aria-label="Your mood" className="mt-4 grid grid-cols-5 gap-2">
         {MOODS.map((m) => {
           const on = picked === m.value;
+          const Icon = moodIcon(m.value);
           return (
             <button
               key={m.value}
@@ -62,7 +65,7 @@ export function MoodTracker() {
                 on ? "border-primary bg-primary-soft text-primary-strong" : "border-border bg-background text-graphite",
               )}
             >
-              <span aria-hidden className="text-xl leading-none">{m.emoji}</span>
+              <Icon aria-hidden className="size-5" strokeWidth={1.75} />
               <span className="text-[11px] font-medium leading-tight">{m.label}</span>
             </button>
           );
@@ -105,9 +108,11 @@ export function MoodTracker() {
         ) : (
           <>
             <ol aria-label="Mood history" className="mt-4 flex flex-wrap items-end gap-x-3 gap-y-4">
-              {recent.map((e) => (
+              {recent.map((e) => {
+                const Icon = moodIcon(e.value);
+                return (
                 <li key={e.id} className="flex w-10 flex-col items-center gap-1.5" title={`${moodLabel(e.value)} · ${dateStamp(e.createdAt)}${e.context ? ` · ${e.context}` : ""}`}>
-                  <span aria-hidden className="journal-fade text-xl leading-none" style={{ fontSize: 14 + e.value * 3 }}>{moodEmoji(e.value)}</span>
+                  <Icon aria-hidden className="journal-fade text-primary-strong" strokeWidth={1.75} style={{ width: 14 + e.value * 3, height: 14 + e.value * 3 }} />
                   <span className="h-1.5 w-full rounded-full bg-secondary">
                     <span className={cn("block h-full rounded-full", e.value >= 4 ? "bg-primary" : e.value === 3 ? "bg-honey" : "bg-blush")} style={{ width: `${e.value * 20}%` }} />
                   </span>
