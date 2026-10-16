@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
-import { ArrowLeft, Droplet, Eye, Hand, Palette, Sprout, Volume2, VolumeX, Waves } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { ArrowLeft, Droplet, Eye, Hand, Heart, Palette, Sprout, Volume2, VolumeX, Waves } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { BottomNav } from "@/components/buddy/BottomNav";
@@ -23,7 +23,9 @@ export const Route = createFileRoute("/tools")({
 
 type Cat = "relief" | "hands" | "distract";
 type ToolId = "breathing" | "texture" | "grounding" | "oil" | "stretch" | "sound" | "sorter";
-const filters: { id: Cat | "all"; label: string }[] = [{ id: "all", label: "All" }, { id: "relief", label: "Quick Relief" }, { id: "hands", label: "Hands Care" }, { id: "distract", label: "Distract & Ground" }];
+type Filter = Cat | "all" | "favorites";
+const FAVORITES_KEY = "pb-favorite-tools";
+const filters: { id: Filter; label: string }[] = [{ id: "all", label: "All" }, { id: "favorites", label: "Favorites" }, { id: "relief", label: "Quick Relief" }, { id: "hands", label: "Hands Care" }, { id: "distract", label: "Distract & Ground" }];
 const tools: { id: ToolId; cat: Cat; title: string; tag: string; text: string; icon: typeof Waves; tint: string; ink: string }[] = [
   { id: "breathing", cat: "relief", title: "Stream Breathing", tag: "30s · 1m · 3m", text: "Slowing heart rate and relaxing nervous tension.", icon: Waves, tint: "bg-stream-soft", ink: "text-stream" },
   { id: "texture", cat: "relief", title: "Tactile Texture Pad", tag: "Open-ended", text: "Safe sensory surface for tracing, gliding, and soft pops.", icon: Sprout, tint: "bg-honey-soft", ink: "text-honey" },
