@@ -128,7 +128,7 @@ function WashPage() {
   return <div className="wash-screen paper-canvas fixed inset-0 overflow-hidden bg-background text-foreground">
     <canvas ref={canvasRef} className="absolute inset-0 h-full w-full touch-none" role="img" aria-label="Watercolor wash surface. Glide or hold your fingers anywhere; colors gently fade on their own." />
     <header className={`wash-chrome pointer-events-none absolute inset-x-0 top-0 flex min-h-14 items-center gap-2 px-3 pt-[env(safe-area-inset-top)] ${faded ? "opacity-15" : "opacity-100"}`}>
-      <Button variant="ghost" size="icon" aria-label="Return to Tools" onClick={() => navigate({ to: "/tools" })} className="pointer-events-auto h-12 w-12 shrink-0 rounded-full border border-border bg-card/70"><ArrowLeft /></Button>
+      <Button variant="ghost" size="icon" aria-label="Return to Tools" onClick={() => { if (paintedRef.current) bloom(); navigate({ to: "/tools" }); }} className="pointer-events-auto h-12 w-12 shrink-0 rounded-full border border-border bg-card/70"><ArrowLeft /></Button>
       <div className="min-w-0"><h1 className="font-display text-lg leading-tight">Watercolor Wash</h1><p className="text-xs text-graphite">Gliding touches, gentle release</p></div>
     </header>
     <span className="sr-only">{PALETTE.length} soft pigments cycle on their own.</span>
