@@ -15,6 +15,7 @@ import { Route as ReflectionsRouteImport } from './routes/reflections'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TextureRouteImport } from './routes/texture'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as WashRouteImport } from './routes/wash'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const ToolsRoute = ToolsRouteImport.update({
   path: '/tools',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WashRoute = WashRouteImport.update({
+  id: '/wash',
+  path: '/wash',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/texture': typeof TextureRoute
   '/tools': typeof ToolsRoute
+  '/wash': typeof WashRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/texture': typeof TextureRoute
   '/tools': typeof ToolsRoute
+  '/wash': typeof WashRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,13 +79,27 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/texture': typeof TextureRoute
   '/tools': typeof ToolsRoute
+  '/wash': typeof WashRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/meadow' | '/reflections' | '/settings' | '/texture' | '/tools'
+    | '/'
+    | '/meadow'
+    | '/reflections'
+    | '/settings'
+    | '/texture'
+    | '/tools'
+    | '/wash'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/meadow' | '/reflections' | '/settings' | '/texture' | '/tools'
+  to:
+    | '/'
+    | '/meadow'
+    | '/reflections'
+    | '/settings'
+    | '/texture'
+    | '/tools'
+    | '/wash'
   id:
     | '__root__'
     | '/'
@@ -86,6 +108,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/texture'
     | '/tools'
+    | '/wash'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -95,6 +118,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   TextureRoute: typeof TextureRoute
   ToolsRoute: typeof ToolsRoute
+  WashRoute: typeof WashRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wash': {
+      id: '/wash'
+      path: '/wash'
+      fullPath: '/wash'
+      preLoaderRoute: typeof WashRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -151,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   TextureRoute: TextureRoute,
   ToolsRoute: ToolsRoute,
+  WashRoute: WashRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

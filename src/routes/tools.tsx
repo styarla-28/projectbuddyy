@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, Droplet, Eye, Hand, Heart, Palette, Sprout, Volume2, VolumeX, Waves } from "lucide-react";
+import { ArrowLeft, Droplet, Eye, Hand, Heart, Palette, Brush, Sprout, Volume2, VolumeX, Waves } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { BottomNav } from "@/components/buddy/BottomNav";
@@ -22,13 +22,14 @@ export const Route = createFileRoute("/tools")({
 });
 
 type Cat = "relief" | "hands" | "distract";
-type ToolId = "breathing" | "texture" | "grounding" | "oil" | "stretch" | "sound" | "sorter";
+type ToolId = "breathing" | "texture" | "wash" | "grounding" | "oil" | "stretch" | "sound" | "sorter";
 type Filter = Cat | "all" | "favorites";
 const FAVORITES_KEY = "pb-favorite-tools";
 const filters: { id: Filter; label: string }[] = [{ id: "all", label: "All" }, { id: "favorites", label: "Favorites" }, { id: "relief", label: "Quick Relief" }, { id: "hands", label: "Hands Care" }, { id: "distract", label: "Distract & Ground" }];
 const tools: { id: ToolId; cat: Cat; title: string; tag: string; text: string; icon: typeof Waves; tint: string; ink: string }[] = [
   { id: "breathing", cat: "relief", title: "Stream Breathing", tag: "30s · 1m · 3m", text: "Slowing heart rate and relaxing nervous tension.", icon: Waves, tint: "bg-stream-soft", ink: "text-stream" },
   { id: "texture", cat: "relief", title: "Tactile Texture Pad", tag: "Open-ended", text: "Safe sensory surface for tracing, gliding, and soft pops.", icon: Sprout, tint: "bg-honey-soft", ink: "text-honey" },
+  { id: "wash", cat: "relief", title: "Watercolor Wash", tag: "Open-ended", text: "Glide fingers through soft pigment that gently fades away.", icon: Brush, tint: "bg-stream-soft", ink: "text-stream" },
   { id: "grounding", cat: "relief", title: "5-4-3-2-1 Sensory Grounding", tag: "2 min", text: "Reconnect gently with the physical room around you.", icon: Eye, tint: "bg-primary-soft", ink: "text-primary" },
   { id: "oil", cat: "hands", title: "Warm Oil & Lotion Ritual", tag: "Self-care guide", text: "Gentle circular touch with moisturizer or cuticle balm.", icon: Droplet, tint: "bg-blush-soft", ink: "text-blush" },
   { id: "stretch", cat: "hands", title: "Fingers & Wrist Stretches", tag: "1 min", text: "Release clawed tension in fingers, palms, and forearms.", icon: Hand, tint: "bg-primary-soft", ink: "text-primary" },
@@ -57,8 +58,8 @@ function Tools() {
     });
   };
   const tool = tools.find((t) => t.id === open);
-  const launch = (id: ToolId) => id === "texture" ? navigate({ to: "/texture" }) : setOpen(id);
-  const body: Record<Exclude<ToolId, "texture">, ReactNode> = {
+  const launch = (id: ToolId) => id === "texture" ? navigate({ to: "/texture" }) : id === "wash" ? navigate({ to: "/wash" }) : setOpen(id);
+  const body: Record<Exclude<ToolId, "texture" | "wash">, ReactNode> = {
     breathing: <StreamBreathing />, grounding: <StepsActivity steps={groundingSteps} />, oil: <StepsActivity steps={oilSteps} />,
     stretch: <StepsActivity steps={stretchSteps} />, sound: <Soundscapes muted={sensoryQuiet} />, sorter: <WatercolorSorter />,
   };
@@ -93,7 +94,7 @@ function Tools() {
       <SheetContent side="bottom" showCloseButton={false} className={`max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-background px-5 pt-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] ${sensoryQuiet ? "quiet" : ""}`}>
         <div className="mx-auto max-w-md">
           <Button variant="ghost" onClick={() => setOpen(null)} className="h-12 rounded-full px-3 text-graphite"><ArrowLeft className="h-4 w-4" />Exit & Return to Tools</Button>
-          {tool && <><SheetHeader className="mt-2 px-0 text-left"><SheetTitle className="font-display text-2xl">{tool.title}</SheetTitle><SheetDescription className="text-graphite">{tool.text}</SheetDescription></SheetHeader>{body[tool.id as Exclude<ToolId, "texture">]}</>}
+          {tool && <><SheetHeader className="mt-2 px-0 text-left"><SheetTitle className="font-display text-2xl">{tool.title}</SheetTitle><SheetDescription className="text-graphite">{tool.text}</SheetDescription></SheetHeader>{body[tool.id as Exclude<ToolId, "texture" | "wash">]}</>}
         </div>
       </SheetContent>
     </Sheet>
