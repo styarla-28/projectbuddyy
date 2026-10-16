@@ -17,7 +17,8 @@ export function pigmentAt(travelledPx: number): string {
   const t = (travelledPx % (span * PALETTE.length)) / span;
   const i = Math.floor(t);
   const f = t - i;
-  const a = PALETTE[i % PALETTE.length], b = PALETTE[(i + 1) % PALETTE.length];
+  const a = PALETTE[i % PALETTE.length] ?? PALETTE[0] ?? "#5E7A5A";
+  const b = PALETTE[(i + 1) % PALETTE.length] ?? a;
   const mix = (k: number) => Math.round(parseInt(a.slice(1 + k, 3 + k), 16) * (1 - f) + parseInt(b.slice(1 + k, 3 + k), 16) * f).toString(16).padStart(2, "0");
   return `#${mix(0)}${mix(2)}${mix(4)}`;
 }

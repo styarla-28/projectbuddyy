@@ -103,6 +103,7 @@ export function WashPage() {
       ctx.globalCompositeOperation = "multiply";
       for (let i = dabs.length - 1; i >= 0; i--) {
         const d = dabs[i];
+        if (!d) continue;
         const life = washLife(now - d.born, quiet);
         if (life <= 0) { dabs.splice(i, 1); continue; }
         const g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r);
