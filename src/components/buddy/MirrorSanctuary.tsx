@@ -6,10 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
 import buddy from "@/assets/moss-buddy.png";
+import { CompanionFigure } from "@/components/buddy/CompanionFigure";
+import { useCompanion } from "@/lib/companion";
 
 /** Softened, opt-in mirror. Frames stay in this tab: never recorded, stored, or sent. */
 export function MirrorSanctuary() {
   const { sensoryQuiet, cameraOptIn } = useSensoryControls();
+  const [companion] = useCompanion();
   const [consent, setConsent] = useState(false);
   const [live, setLive] = useState(false);
   const [welcome, setWelcome] = useState(false);
@@ -101,7 +104,7 @@ export function MirrorSanctuary() {
           <Button ref={exitRef} onClick={exit} className="h-12 min-w-12 rounded-full bg-foreground px-4 text-background hover:bg-foreground/90"><X />Exit Safe</Button>
         </div>
         <div className="absolute bottom-[calc(1rem+env(safe-area-inset-bottom))] left-4 flex items-center gap-2 rounded-2xl border border-border bg-background/90 p-3 backdrop-blur">
-          <img src={buddy} alt="" className="mirror-buddy h-12 w-12 object-contain" />
+          <CompanionFigure color={companion.color} accessory={companion.accessory} className="mirror-buddy h-12 w-12" imgClassName="object-contain" alt="Your companion" />
           <span className="text-sm text-foreground">Breathing with you</span>
         </div>
       </div>, document.body)}
