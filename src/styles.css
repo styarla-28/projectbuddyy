@@ -217,3 +217,12 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 @keyframes journal-fade { from { opacity: 0; } to { opacity: 1; } }
 .quiet .journal-entry { animation: journal-fade 150ms ease-out !important; }
 @media (prefers-reduced-motion: reduce) { .journal-entry { animation: journal-fade 150ms ease-out !important; } }
+
+/* Healing Meadow */
+.meadow-drift { animation: meadow-pan var(--pb-motion-drift) var(--pb-ease-ghibli) infinite alternate; transform-origin: center; }
+@keyframes meadow-pan { from { transform: scale(1.04) translateX(-0.6%); } to { transform: scale(1.04) translateX(0.6%); } }
+.meadow-reflection, .meadow-bloom { animation: meadow-fade 1.2s var(--pb-ease-ghibli); }
+@keyframes meadow-fade { from { opacity: 0; } to { opacity: 1; } }
+.quiet .meadow-drift, .quiet .meadow-flower { animation: none; }
+.quiet .meadow-reflection, .quiet .meadow-bloom { animation-duration: 150ms; }
+@media (prefers-reduced-motion: reduce) { .meadow-drift, .meadow-flower { animation: none; } }

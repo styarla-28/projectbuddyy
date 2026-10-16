@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MeadowRouteImport } from './routes/meadow'
 import { Route as ReflectionsRouteImport } from './routes/reflections'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TextureRouteImport } from './routes/texture'
@@ -18,6 +19,11 @@ import { Route as ToolsRouteImport } from './routes/tools'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeadowRoute = MeadowRouteImport.update({
+  id: '/meadow',
+  path: '/meadow',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReflectionsRoute = ReflectionsRouteImport.update({
@@ -43,6 +49,7 @@ const ToolsRoute = ToolsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/meadow': typeof MeadowRoute
   '/reflections': typeof ReflectionsRoute
   '/settings': typeof SettingsRoute
   '/texture': typeof TextureRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/meadow': typeof MeadowRoute
   '/reflections': typeof ReflectionsRoute
   '/settings': typeof SettingsRoute
   '/texture': typeof TextureRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/meadow': typeof MeadowRoute
   '/reflections': typeof ReflectionsRoute
   '/settings': typeof SettingsRoute
   '/texture': typeof TextureRoute
@@ -65,14 +74,23 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/reflections' | '/settings' | '/texture' | '/tools'
+  fullPaths:
+    '/' | '/meadow' | '/reflections' | '/settings' | '/texture' | '/tools'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/reflections' | '/settings' | '/texture' | '/tools'
-  id: '__root__' | '/' | '/reflections' | '/settings' | '/texture' | '/tools'
+  to: '/' | '/meadow' | '/reflections' | '/settings' | '/texture' | '/tools'
+  id:
+    | '__root__'
+    | '/'
+    | '/meadow'
+    | '/reflections'
+    | '/settings'
+    | '/texture'
+    | '/tools'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MeadowRoute: typeof MeadowRoute
   ReflectionsRoute: typeof ReflectionsRoute
   SettingsRoute: typeof SettingsRoute
   TextureRoute: typeof TextureRoute
@@ -86,6 +104,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meadow': {
+      id: '/meadow'
+      path: '/meadow'
+      fullPath: '/meadow'
+      preLoaderRoute: typeof MeadowRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reflections': {
@@ -121,6 +146,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MeadowRoute: MeadowRoute,
   ReflectionsRoute: ReflectionsRoute,
   SettingsRoute: SettingsRoute,
   TextureRoute: TextureRoute,
