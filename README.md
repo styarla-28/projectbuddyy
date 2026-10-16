@@ -1,7 +1,5 @@
 # Projectbuddyy
 
-read through the build specifications but don't do anything yet
-
 This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://projectbuddyy.lovable.app
