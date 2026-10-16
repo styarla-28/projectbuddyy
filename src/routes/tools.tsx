@@ -9,7 +9,7 @@ import { MirrorSanctuary } from "@/components/buddy/MirrorSanctuary";
 import { StreamBreathing, StepsActivity, Soundscapes, WatercolorSorter, groundingSteps, oilSteps, stretchSteps } from "@/components/buddy/ToolActivities";
 
 export const Route = createFileRoute("/tools")({
-  validateSearch: (search: Record<string, unknown>): { open?: ToolId } => (TOOL_IDS.includes(search.open as ToolId) ? { open: search.open as ToolId } : {}),
+  validateSearch: (search: Record<string, unknown>): { open?: ToolId } => (TOOL_IDS.includes(search["open"] as ToolId) ? { open: search["open"] as ToolId } : {}),
   head: () => ({
     meta: [
       { title: "Coping Sanctuary · Project Buddy" },
