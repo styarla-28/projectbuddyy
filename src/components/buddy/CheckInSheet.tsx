@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import type { GroundingActivity } from "@/components/buddy/GroundingSheet";
+import { bloom } from "@/lib/meadow";
 
 const locations = ["Fingers & nails", "Cuticles", "Face & jaw", "Shoulders & arms", "Just anxious"];
 const emotions = ["Restless", "Overwhelmed", "Bored", "Zoned out"];
@@ -85,8 +86,8 @@ export function CheckInSheet({ open, onOpenChange, onBeginActivity }: {
       </div>}
 
       <div className="flex flex-col gap-2">
-        <Button onClick={() => { if (showingTools) { close(false); onBeginActivity(selectedActivity); } else changeStep(step + 1); }} className="h-[52px] w-full rounded-full font-semibold shadow-soft hover:bg-primary-strong">{showingTools ? <Leaf className="h-4 w-4" /> : null}{showingTools ? "Begin Activity" : "Continue"}{!showingTools && <ArrowRight className="h-4 w-4" />}</Button>
-        {showingTools && <Button variant="ghost" onClick={() => close(false)} className="min-h-12 w-full whitespace-normal rounded-full px-2 text-sm text-graphite">I feel better, return to Home</Button>}
+        <Button onClick={() => { if (showingTools) { bloom(); close(false); onBeginActivity(selectedActivity); } else changeStep(step + 1); }} className="h-[52px] w-full rounded-full font-semibold shadow-soft hover:bg-primary-strong">{showingTools ? <Leaf className="h-4 w-4" /> : null}{showingTools ? "Begin Activity" : "Continue"}{!showingTools && <ArrowRight className="h-4 w-4" />}</Button>
+        {showingTools && <Button variant="ghost" onClick={() => { bloom(); close(false); }} className="min-h-12 w-full whitespace-normal rounded-full px-2 text-sm text-graphite">I feel better, return to Home</Button>}
         <div className="flex items-center justify-between gap-2 border-t border-border/70 pt-1">
           {(step > 0 || toolsOnly) ? <Button variant="ghost" onClick={() => changeStep(toolsOnly ? step : step - 1)} className="h-12 rounded-full px-3 text-sm text-graphite"><ArrowLeft className="h-4 w-4" />Back</Button> : <span className="text-xs text-muted-foreground">At your own pace</span>}
           <Button variant="ghost" onClick={() => { if (showingTools) { close(false); onBeginActivity(selectedActivity); } else skipToTools(); }} className="h-12 rounded-full px-3 text-sm font-semibold text-primary-strong">Skip to tools<ArrowRight className="h-4 w-4" /></Button>
