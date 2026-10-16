@@ -27,10 +27,10 @@ const SURFACES: { id: Surface; name: string; hint: string; tint: string }[] = [
 
 function TexturePage() {
   const navigate = useNavigate();
-  const { sensoryQuiet } = useSensoryControls();
+  const { sensoryQuiet, haptics: hapticsPref, setHaptics: setHapticsPref } = useSensoryControls();
   const [surface, setSurface] = useState<Surface>("pebble");
   const [sound, setSound] = useState(false);
-  const [haptics, setHaptics] = useState(true);
+  const haptics = hapticsPref; const setHaptics = (fn: (h: boolean) => boolean) => setHapticsPref(fn(haptics));
   const [evening, setEvening] = useState(false);
   const [clearKey, setClearKey] = useState(0);
   const [activity, setActivity] = useState<GroundingActivity>(null);
