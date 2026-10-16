@@ -1,19 +1,30 @@
-import { Clover, Coffee, Droplet, Nut } from "lucide-react";
+import type { CSSProperties } from "react";
+import clover from "@/assets/acc-clover.png";
+import acorn from "@/assets/acc-acorn.png";
+import teacup from "@/assets/acc-teacup.png";
+import dewdrop from "@/assets/acc-dewdrop.png";
+import scarf from "@/assets/acc-scarf.png";
 import buddy from "@/assets/moss-buddy.png";
 import { DEFAULT_COMPANION } from "@/lib/companion";
 
 const mask = { maskImage: `url(${buddy})`, WebkitMaskImage: `url(${buddy})`, maskSize: "contain", WebkitMaskSize: "contain", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center bottom", WebkitMaskPosition: "center bottom" } as const;
 
-function Accessory({ name }: { name: string }) {
-  const icon = "absolute drop-shadow-sm";
-  switch (name) {
-    case "Clover Sprout": return <Clover aria-hidden className={`${icon} left-[56%] top-[6%] size-[22%]! fill-primary/70 text-primary-strong`} strokeWidth={1.5} />;
-    case "Acorn Cap": return <Nut aria-hidden className={`${icon} left-[37%] top-[3%] size-[26%]! fill-honey text-graphite`} strokeWidth={1.5} />;
-    case "Teacup Hat": return <Coffee aria-hidden className={`${icon} left-[35%] top-[1%] size-[30%]! fill-card text-graphite`} strokeWidth={1.5} />;
-    case "Dewdrop Pin": return <Droplet aria-hidden className={`${icon} left-[58%] top-[52%] size-[16%]! fill-stream-soft text-stream`} strokeWidth={1.75} />;
-    case "Linen Scarf": return <span aria-hidden className="absolute left-[27%] top-[58%] h-[9%] w-[46%] rounded-full border border-graphite/40 bg-honey-soft shadow-sm" />;
-    default: return null;
-  }
+const ACCESSORY_ART: Record<string, { src: string; style: CSSProperties }> = {
+  "Clover Sprout": { src: clover, style: { left: "55%", top: "12%", width: "20%", transform: "rotate(18deg)" } },
+  "Acorn Cap": { src: acorn, style: { left: "35%", top: "15%", width: "30%" } },
+  "Teacup Hat": { src: teacup, style: { left: "30%", top: "15%", width: "42%" } },
+  "Dewdrop Pin": { src: dewdrop, style: { left: "60%", top: "56%", width: "9%", transform: "rotate(-12deg)" } },
+  "Linen Scarf": { src: scarf, style: { left: "27%", top: "53%", width: "48%" } },
+};
+
+function Accessory({ name, color, tinted }: { name: string; color: string; tinted: boolean }) {
+  const art = ACCESSORY_ART[name];
+  if (!art) return null;
+  const m = { maskImage: `url(${art.src})`, WebkitMaskImage: `url(${art.src})`, maskSize: "100% 100%", WebkitMaskSize: "100% 100%" };
+  return <span aria-hidden className="absolute isolate block drop-shadow-sm" style={art.style}>
+    <img src={art.src} alt="" className="block h-auto w-full" />
+    {tinted && <span className="absolute inset-0" style={{ ...m, background: color, mixBlendMode: "soft-light", opacity: 0.55 }} />}
+  </span>;
 }
 
 /** The companion art tinted with the chosen body wash, plus the chosen accessory. Moss green shows the original painting. */
@@ -25,6 +36,6 @@ export function CompanionFigure({ color, accessory, className = "", imgClassName
       <span aria-hidden className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "color" }} />
       <span aria-hidden className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "soft-light", opacity: 0.5 }} />
     </>}
-    <Accessory name={accessory} />
+    <Accessory name={accessory} color={color} tinted={tinted} />
   </span></span>;
 }
