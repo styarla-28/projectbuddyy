@@ -73,7 +73,7 @@ function SettingsPage() {
             <ShieldCheck className="mt-0.5 size-5 shrink-0 text-stream" />
             <p className="text-sm"><strong>100% On-Device Privacy:</strong> Project Buddy never records, stores, or transmits your camera footage or images. Any future hand-tracking runs strictly in real-time in your device browser.</p>
           </div>
-          <ToggleRow id="camera" label="Camera Feature Opt-In" text="Allow experimental non-diagnostic mirror/AR view on Home screen." checked={s.cameraOptIn} onChange={s.setCameraOptIn} />
+          <ToggleRow id="camera" label="Camera Feature Opt-In" text="Remember that you have opened the softened Mirror Sanctuary. Turning this off closes the camera at once." checked={s.cameraOptIn} onChange={s.setCameraOptIn} />
           <div className="p-3"><Button variant="outline" onClick={revokeCamera} className="h-12 w-full rounded-full">Revoke Camera Access</Button></div>
         </Section>
 
