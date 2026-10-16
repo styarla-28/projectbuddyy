@@ -3,6 +3,7 @@ import { Flower2, Pause, Play, Sprout } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { breathingMoment } from "@/components/buddy/breathing";
+import { bloom } from "@/lib/meadow";
 import sanctuary from "@/assets/buddy-sanctuary.jpg";
 import buddy from "@/assets/moss-buddy.png";
 
@@ -21,7 +22,7 @@ export function GroundingSheet({ activity, onClose }: { activity: GroundingActiv
   const isBreathing = activity === "breathing" || activity === "stream";
   const moment = breathingMoment(seconds, activity === "stream");
   const title = activity === "stream" ? "Breathe with stream" : activity === "breathing" ? "Box Breathing" : activity === "texture" ? "Tactile Texture Pad" : "Healing Meadow";
-  return <Sheet open={activity !== null} onOpenChange={(open) => { if (!open) onClose(); }}>
+  return <Sheet open={activity !== null} onOpenChange={(open) => { if (!open) { if (isBreathing && seconds >= 15) bloom(); onClose(); } }}>
     <SheetContent side="bottom" className="max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-background px-5 pt-14 pb-[calc(2rem+env(safe-area-inset-bottom))]">
       <div className="mx-auto max-w-md">
         <SheetHeader className="px-0 text-center">
