@@ -9,9 +9,10 @@ describe("mood tracker", () => {
   it("saves and reloads entries", () => {
     const list = addMood([], 4, "After breathing");
     saveMoods(list);
-    expect(loadMoods()).toHaveLength(1);
-    expect(loadMoods()[0].value).toBe(4);
-    expect(loadMoods()[0].context).toBe("After breathing");
+    const loaded = loadMoods();
+    expect(loaded).toHaveLength(1);
+    expect(loaded[0]?.value).toBe(4);
+    expect(loaded[0]?.context).toBe("After breathing");
   });
 
   it("drops malformed entries on load", () => {
