@@ -3,6 +3,8 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowLeft, Heart, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { CompanionFigure } from "@/components/buddy/CompanionFigure";
+import { useCompanion } from "@/lib/companion";
 import { BottomNav } from "@/components/buddy/BottomNav";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
 import { MirrorSanctuary } from "@/components/buddy/MirrorSanctuary";
@@ -60,7 +62,7 @@ function Tools() {
 
   return <div className={`paper-canvas min-h-dvh pb-28 ${sensoryQuiet ? "quiet" : ""}`}>
     <main className="mx-auto w-full max-w-[480px] px-5 pt-7 sm:pt-9">
-      <h1 className="font-display text-[28px] leading-tight">Coping Sanctuary<span className="text-honey">.</span></h1>
+      <div className="flex items-center gap-3"><div className="min-w-0 flex-1"><h1 className="font-display text-[28px] leading-tight">Coping Sanctuary<span className="text-honey">.</span></h1></div><CompanionBadge /></div>
       <p className="mt-1.5 text-[13px] text-graphite">Gentle practices for restless hands and busy minds</p>
       <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter tools">{filters.map((f) => <Button key={f.id} variant="ghost" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)} className={`min-h-12 shrink-0 rounded-full border px-4 text-sm ${filter === f.id ? "border-primary bg-primary-soft text-primary-strong hover:bg-primary-soft hover:text-primary-strong" : "border-border bg-card text-graphite hover:bg-secondary hover:text-graphite"}`}>{f.label}</Button>)}</div>
       {sections.filter((s) => filter === "all" || filter === "favorites" || filter === s.cat).map((s) => {
@@ -92,5 +94,14 @@ function Tools() {
         </div>
       </SheetContent>
     </Sheet>
+  </div>;
+}
+
+function CompanionBadge() {
+  const [c] = useCompanion();
+  const name = c.name.trim() || "Buddy";
+  return <div className="flex shrink-0 flex-col items-center" aria-label={`${name} is here with you`} role="img">
+    <span className="grid size-16 place-items-center rounded-full border bg-card shadow-soft"><span className="buddy-settle block h-[85%] w-[85%]"><CompanionFigure color={c.color} accessory={c.accessory} className="buddy-rest h-full w-full" /></span></span>
+    <span className="mt-1 max-w-20 truncate text-xs font-semibold text-primary-strong">{name}</span>
   </div>;
 }

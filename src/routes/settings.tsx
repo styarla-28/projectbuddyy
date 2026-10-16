@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { JOURNAL_KEY, loadEntries } from "@/lib/journal";
 import { downloadBlob, journalToText } from "@/lib/journal-export";
 import { ACCESSORIES, WASHES, useCompanion, washName } from "@/lib/companion";
-import buddy from "@/assets/moss-buddy.png";
+import { CompanionFigure } from "@/components/buddy/CompanionFigure";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -41,14 +41,9 @@ function ToggleRow({ id, label, text, checked, onChange }: { id: string; label: 
   return <div className="flex items-center gap-4 rounded-2xl py-3"><div className="min-w-0 flex-1"><label htmlFor={id} className="font-semibold">{label}</label><p id={`${id}-d`} className="mt-0.5 text-sm text-graphite">{text}</p></div><Switch id={id} aria-label={label} aria-describedby={`${id}-d`} checked={checked} onCheckedChange={onChange} className="data-[state=checked]:bg-primary" /></div>;
 }
 
-function Avatar({ color, size = 40, ring = true }: { color: string; size?: number; ring?: boolean }) {
-  const mask = { maskImage: `url(${buddy})`, WebkitMaskImage: `url(${buddy})`, maskSize: "contain", WebkitMaskSize: "contain", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center bottom", WebkitMaskPosition: "center bottom" } as const;
+function Avatar({ color, accessory, size = 40, ring = true }: { color: string; accessory: string; size?: number; ring?: boolean }) {
   return <span aria-hidden className={`relative grid shrink-0 place-items-center overflow-hidden ${ring ? "rounded-full border bg-background" : ""}`} style={{ width: size, height: size }}>
-    <span className="animate-breathe relative isolate block h-[85%] w-[85%]" style={{ transformOrigin: "bottom center" }}>
-      <img src={buddy} alt="" className="absolute inset-0 h-full w-full object-contain object-bottom" />
-      <span className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "color" }} />
-      <span className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "soft-light", opacity: 0.5 }} />
-    </span>
+    <CompanionFigure color={color} accessory={accessory} className="animate-breathe h-[85%] w-[85%] [transform-origin:bottom_center]" />
   </span>;
 }
 
@@ -77,7 +72,7 @@ function SettingsPage() {
         {note && <p role="status" className="mt-5 rounded-2xl bg-primary-soft p-3 text-sm text-primary-strong">{note}</p>}
 
         <Accordion type="multiple" defaultValue={["companion"]}>
-          <Group value="companion" icon={<Sparkles className="size-5 text-honey" />} title="Companion & Personalization" extra={<Avatar color={companion.color} />}>
+          <Group value="companion" icon={<Sparkles className="size-5 text-honey" />} title="Companion & Personalization" extra={<Avatar color={companion.color} accessory={companion.accessory} />}>
             <label htmlFor="companion-name" className="font-semibold">Companion Name</label>
             <input id="companion-name" value={companion.name} maxLength={24} placeholder="Name your buddy..." onChange={(e) => setCompanion({ name: e.target.value })} className="mt-2 h-12 w-full rounded-2xl border bg-background px-4 outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 
@@ -103,7 +98,7 @@ function SettingsPage() {
             </div>
 
             <div className="mt-6 flex flex-col items-center rounded-3xl border bg-background p-4">
-              <Avatar color={companion.color} size={160} ring={false} />
+              <Avatar color={companion.color} accessory={companion.accessory} size={160} ring={false} />
               <p className="mt-2 font-display text-lg font-semibold">{companion.name.trim() || "Buddy"}</p>
               <p className="text-sm text-graphite">{washName(companion.color)} · {companion.accessory}</p>
             </div>
