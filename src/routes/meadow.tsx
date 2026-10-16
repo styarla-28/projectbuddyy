@@ -6,7 +6,8 @@ import { Slider } from "@/components/ui/slider";
 import { useSensoryControls } from "@/components/buddy/SensoryProvider";
 import { addBloom, readBlooms, REFLECTIONS, REFLECTION_MS, TIMERS } from "@/lib/meadow";
 import meadow from "@/assets/healing-meadow.jpg";
-import buddy from "@/assets/moss-buddy.png";
+import { CompanionFigure } from "@/components/buddy/CompanionFigure";
+import { useCompanion } from "@/lib/companion";
 
 export const Route = createFileRoute("/meadow")({
   head: () => ({ meta: [
@@ -64,6 +65,7 @@ function useAmbient(sound: Sound, volume: number, muted: boolean) {
 
 function MeadowPage() {
   const navigate = useNavigate();
+  const [companion] = useCompanion();
   const { quiet, sensoryQuiet, toggleQuiet } = useSensoryControls();
   const [blooms, setBlooms] = useState(0);
   const [spot, setSpot] = useState<Spot>("willow");
@@ -109,7 +111,7 @@ function MeadowPage() {
 
       <section className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-soft" aria-label="Meadow scene">
         <img src={meadow} alt="A hand-painted sunlit meadow with a willow tree, a mossy boulder, wildflowers and a winding stream" width={1536} height={1024} className="meadow-drift absolute inset-0 h-full w-full object-cover" />
-        <span className="buddy-settle absolute bottom-[8%] left-[30%] block w-[22%]"><img src={buddy} alt="Your companion resting peacefully under the willow" className="buddy-rest w-full" /></span>
+        <span className="buddy-settle absolute bottom-[8%] left-[30%] block aspect-square w-[22%]"><CompanionFigure color={companion.color} accessory={companion.accessory} alt={`${companion.name.trim() || "Buddy"}, resting peacefully under the willow`} className="buddy-rest h-full w-full" /></span>
         {Array.from({ length: Math.min(blooms, 24) }, (_, i) => <Flower2 key={i} aria-hidden className="meadow-flower absolute h-4 w-4 text-honey" strokeWidth={1.4} style={{ left: `${45 + ((i * 37) % 50)}%`, bottom: `${3 + ((i * 17) % 14)}%`, animationDelay: `${-i * 0.7}s` }} />)}
         {SPOTS.map((s) => <button key={s.id} aria-label={`Rest at ${s.label}`} aria-pressed={spot === s.id} onClick={() => setSpot(s.id)} className={`absolute grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full ${s.pos}`}><span className={`h-3.5 w-3.5 rounded-full border-2 border-card ${spot === s.id ? "bg-honey ring-4 ring-honey/40" : "bg-card/80"}`} /></button>)}
         {blossomed && <div className="meadow-bloom absolute inset-x-4 top-4 rounded-2xl bg-card/95 px-4 py-3 text-center shadow-soft"><Flower2 className="mx-auto mb-1 h-7 w-7 text-honey" /><p className="font-display text-sm">A buttercup blossomed in your meadow. Thank you for resting your hands.</p></div>}
