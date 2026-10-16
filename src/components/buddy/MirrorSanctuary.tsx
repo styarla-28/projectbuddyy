@@ -9,7 +9,7 @@ import buddy from "@/assets/moss-buddy.png";
 
 /** Softened, opt-in mirror. Frames stay in this tab: never recorded, stored, or sent. */
 export function MirrorSanctuary() {
-  const { sensoryQuiet, cameraOptIn, setCameraOptIn } = useSensoryControls();
+  const { sensoryQuiet, cameraOptIn } = useSensoryControls();
   const [consent, setConsent] = useState(false);
   const [live, setLive] = useState(false);
   const [welcome, setWelcome] = useState(false);
@@ -30,7 +30,6 @@ export function MirrorSanctuary() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
       streamRef.current = stream;
-      setCameraOptIn(true);
       setWelcome(false);
       setLive(true);
     } catch {
@@ -41,7 +40,7 @@ export function MirrorSanctuary() {
   useEffect(() => {
     if (live && videoRef.current && streamRef.current) { videoRef.current.srcObject = streamRef.current; exitRef.current?.focus(); }
   }, [live]);
-  useEffect(() => { if (live && !cameraOptIn) exit(); }, [cameraOptIn]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!cameraOptIn) { cut(); setLive(false); setConsent(false); setWelcome(false); } }, [cameraOptIn]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const hide = () => { if (document.hidden && streamRef.current) exit(); };
     document.addEventListener("visibilitychange", hide);
@@ -54,6 +53,8 @@ export function MirrorSanctuary() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [live]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!cameraOptIn) return null;
 
   return <>
     {welcome ? (
