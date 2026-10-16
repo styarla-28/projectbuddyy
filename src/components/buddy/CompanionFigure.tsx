@@ -8,8 +8,8 @@ function Accessory({ name }: { name: string }) {
   const icon = "absolute drop-shadow-sm";
   switch (name) {
     case "Clover Sprout": return <Clover aria-hidden className={`${icon} left-[56%] top-[6%] size-[22%]! fill-primary/70 text-primary-strong`} strokeWidth={1.5} />;
-    case "Acorn Cap": return <Nut aria-hidden className={`${icon} left-[34%] top-[16%] size-[32%]! fill-honey text-graphite`} strokeWidth={1.5} />;
-    case "Teacup Hat": return <Coffee aria-hidden className={`${icon} left-[33%] top-[12%] size-[34%]! fill-card text-graphite`} strokeWidth={1.5} />;
+    case "Acorn Cap": return <Nut aria-hidden className={`${icon} left-[37%] top-[3%] size-[26%]! fill-honey text-graphite`} strokeWidth={1.5} />;
+    case "Teacup Hat": return <Coffee aria-hidden className={`${icon} left-[35%] top-[1%] size-[30%]! fill-card text-graphite`} strokeWidth={1.5} />;
     case "Dewdrop Pin": return <Droplet aria-hidden className={`${icon} left-[58%] top-[52%] size-[16%]! fill-stream-soft text-stream`} strokeWidth={1.75} />;
     case "Linen Scarf": return <span aria-hidden className="absolute left-[27%] top-[58%] h-[9%] w-[46%] rounded-full border border-graphite/40 bg-honey-soft shadow-sm" />;
     default: return null;
