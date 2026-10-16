@@ -3,11 +3,11 @@ export type MoodEntry = { id: string; value: number; context: string | null; cre
 export const MOOD_KEY = "pb-mood-entries";
 
 export const MOODS = [
-  { value: 1, label: "Heavy", emoji: "🌧️" },
-  { value: 2, label: "Tender", emoji: "🌫️" },
-  { value: 3, label: "Okay", emoji: "🍃" },
-  { value: 4, label: "Light", emoji: "🌤️" },
-  { value: 5, label: "Bright", emoji: "🌼" },
+  { value: 1, label: "Heavy" },
+  { value: 2, label: "Tender" },
+  { value: 3, label: "Okay" },
+  { value: 4, label: "Light" },
+  { value: 5, label: "Bright" },
 ] as const;
 
 export const MOOD_CONTEXTS = ["After a pause", "After breathing", "After texture pad", "After the meadow", "Just checking in"] as const;
@@ -39,9 +39,6 @@ export function moodLabel(value: number): string {
   return MOODS.find((m) => m.value === value)?.label ?? "Okay";
 }
 
-export function moodEmoji(value: number): string {
-  return MOODS.find((m) => m.value === value)?.emoji ?? "🍃";
-}
 
 /** Average mood for entries, rounded to one decimal, or null when empty. */
 export function averageMood(entries: MoodEntry[]): number | null {
