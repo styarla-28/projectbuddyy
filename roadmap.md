@@ -22,3 +22,7 @@
 - [x] Audit every page and activity at phone, tablet, desktop, and short landscape sizes.
 - [x] Fix content wrapping, touch controls, canvas resizing, and sheet sizing.
 - [x] Verify interactions and existing tests after layout updates.
+
+# Healing Meadow
+- [x] Full-screen meadow page: resting spots, reflections, soundscapes, timer, permanent blooms.
+- [x] Route Home and check-in into it; verify.
