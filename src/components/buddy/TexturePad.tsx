@@ -69,10 +69,12 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
             g.strokeStyle = tone("--honey", 0.45); g.lineWidth = 22; drawSeg(g, a, b);
             for (const off of [-7, 0, 7]) { g.strokeStyle = tone("--wood", 0.75); g.lineWidth = 2; drawSeg(g, a, b, off); }
           } else if (surface === "moss") {
-            g.strokeStyle = tone("--primary", 0.35 * life); g.lineWidth = 26; drawSeg(g, a, b);
-            g.strokeStyle = tone("--primary-strong", 0.25 * life); g.lineWidth = 8; drawSeg(g, a, b);
+            g.strokeStyle = tone("--card", 0.5 * life); g.lineWidth = 32; drawSeg(g, a, b);
+            g.strokeStyle = tone("--primary", 0.55 * life); g.lineWidth = 26; drawSeg(g, a, b);
+            g.strokeStyle = tone("--primary-strong", 0.4 * life); g.lineWidth = 8; drawSeg(g, a, b);
           } else {
-            g.strokeStyle = tone("--stream", 0.3 * life); g.lineWidth = 18; drawSeg(g, a, b);
+            g.strokeStyle = tone("--card", 0.5 * life); g.lineWidth = 24; drawSeg(g, a, b);
+            g.strokeStyle = tone("--stream", 0.55 * life); g.lineWidth = 18; drawSeg(g, a, b);
           }
         }
         if (surface === "pebble" && fades) {
@@ -93,12 +95,12 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
 
   const pos = (e: React.PointerEvent) => { const r = e.currentTarget.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() }; };
   return <canvas ref={canvas} aria-label={`${surface} tracing surface`} role="img" data-testid="trace-canvas" className="absolute inset-0 h-full w-full touch-none"
-    onPointerDown={(e) => { e.currentTarget.setPointerCapture?.(e.pointerId); const s = { id: Math.random(), points: [pos(e)], surface }; active.current.set(e.pointerId, s); strokes.current.push(s); onTouch(); }}
+    onPointerDown={(e) => { e.currentTarget.setPointerCapture?.(e.pointerId); const p = pos(e); const s = { id: Math.random(), points: [p, { ...p }], surface }; active.current.set(e.pointerId, s); strokes.current.push(s); onTouch(); }}
     onPointerMove={(e) => {
       const s = active.current.get(e.pointerId); if (!s) return;
       const p = pos(e); const prev = s.points[s.points.length - 1] ?? p;
       // Moss has a velvet resistance: the trail eases toward the finger.
-      const k = surface === "moss" ? 0.35 : 1;
+      const k = surface === "moss" ? 0.5 : 1;
       s.points.push({ x: prev.x + (p.x - prev.x) * k, y: prev.y + (p.y - prev.y) * k, t: p.t });
       const lt = last.current.get(e.pointerId) ?? 0;
       if (p.t - lt > 450) { last.current.set(e.pointerId, p.t); onTouch(); }
