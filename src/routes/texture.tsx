@@ -36,39 +36,41 @@ function TexturePage() {
   const [activity, setActivity] = useState<GroundingActivity>(null);
   const feedback = useSoftFeedback(sound, haptics, sensoryQuiet);
   const home = () => navigate({ to: "/" });
-  const surfaceBg = SURFACES.find((s) => s.id === surface)!.tint;
+  const surfaceBg = SURFACES.find((s) => s.id === surface)?.tint ?? "bg-stream-soft border-stream/30";
 
   return <div className={`paper-canvas flex min-h-dvh flex-col bg-background text-foreground ${evening ? "pb-evening" : ""} ${sensoryQuiet ? "quiet" : ""}`}>
-    <main className="mx-auto flex w-full max-w-[480px] flex-1 flex-col px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-      <header className="flex items-center gap-3">
+    <main className="texture-layout mx-auto grid w-full max-w-[480px] flex-1 gap-3 px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+      <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
         <Button variant="ghost" size="icon" aria-label="Return to Home" onClick={home} className="h-12 w-12 shrink-0 rounded-full border border-border bg-card/70"><ArrowLeft /></Button>
         <div className="min-w-0 flex-1"><h1 className="font-display text-xl leading-tight">Sensory Pad <span className="text-honey">·</span> Rest Your Hands</h1></div>
         <div className="breath-ring grid h-12 w-12 shrink-0 place-items-center rounded-full border-2 border-stream/40 bg-stream-soft" role="img" aria-label="Slow breathing guide, about 11 seconds per breath"><Leaf className="h-5 w-5 text-stream" strokeWidth={1.4} /></div>
       </header>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2" aria-label="Sensory settings">
+      <div className="flex flex-wrap items-center gap-2" aria-label="Sensory settings">
         <div className="flex rounded-full border border-border bg-card/70 p-0.5">
-          <Button variant="ghost" aria-pressed={sound && !sensoryQuiet} disabled={sensoryQuiet} onClick={() => setSound((s) => !s)} aria-label="Soft sounds" className="h-11 gap-1.5 rounded-full px-3 text-xs aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{sound && !sensoryQuiet ? <Volume2 /> : <VolumeX />}Sound</Button>
-          <Button variant="ghost" aria-pressed={haptics} onClick={() => setHaptics((h) => !h)} aria-label="Gentle vibration" className="h-11 gap-1.5 rounded-full px-3 text-xs aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{haptics ? <SmartphoneNfc /> : <Smartphone />}Haptics</Button>
+          <Button variant="ghost" aria-pressed={sound && !sensoryQuiet} disabled={sensoryQuiet} onClick={() => setSound((s) => !s)} aria-label="Soft sounds" className="h-12 gap-1.5 rounded-full px-3 text-xs aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{sound && !sensoryQuiet ? <Volume2 /> : <VolumeX />}Sound</Button>
+          <Button variant="ghost" aria-pressed={haptics} onClick={() => setHaptics((h) => !h)} aria-label="Gentle vibration" className="h-12 gap-1.5 rounded-full px-3 text-xs aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{haptics ? <SmartphoneNfc /> : <Smartphone />}Haptics</Button>
         </div>
-        <Button variant="ghost" aria-pressed={evening} onClick={() => setEvening((e) => !e)} className="h-11 gap-1.5 rounded-full border border-border bg-card/70 px-3 text-xs aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{evening ? <Moon /> : <Sun />}Evening contrast</Button>
+        <Button variant="ghost" aria-pressed={evening} onClick={() => setEvening((e) => !e)} className="h-12 gap-1.5 rounded-full border border-border bg-card/70 px-3 text-xs aria-pressed:bg-primary-soft aria-pressed:text-primary-strong">{evening ? <Moon /> : <Sun />}Evening contrast</Button>
       </div>
 
-      <div className="mt-3 grid grid-cols-4 gap-2" role="radiogroup" aria-label="Choose a texture">
+      <div className="grid grid-cols-2 gap-2 min-[360px]:grid-cols-4" role="radiogroup" aria-label="Choose a texture">
         {SURFACES.map((s) => <Button key={s.id} variant="ghost" role="radio" aria-checked={surface === s.id} onClick={() => setSurface(s.id)}
           className={`texture-tab h-16 flex-col gap-0.5 whitespace-normal rounded-2xl border px-1 text-center leading-tight ${s.tint} aria-checked:border-primary-strong aria-checked:ring-2 aria-checked:ring-primary/30`}>
           <span className="text-[11px] font-semibold text-graphite">{s.name}</span><span className="text-[10px] font-normal text-muted-foreground">{s.hint}</span></Button>)}
       </div>
 
-      <section className={`relative mt-3 min-h-[320px] flex-1 basis-[60dvh] overflow-hidden rounded-3xl border shadow-soft ${surfaceBg}`} aria-label="Tactile canvas">
+      <section className={`relative min-h-0 overflow-hidden rounded-3xl border shadow-soft ${surfaceBg}`} aria-label="Tactile canvas">
         {surface === "bubble" ? <BubbleWrap onPop={() => feedback("pop")} /> : <TraceCanvas surface={surface} quiet={sensoryQuiet} clearKey={clearKey} onTouch={() => feedback("touch")} />}
-        {surface === "sand" && <Button variant="ghost" onClick={() => setClearKey((k) => k + 1)} className="absolute right-3 top-3 h-11 gap-1.5 rounded-full bg-card/80 px-3 text-xs"><Eraser />Smooth the sand</Button>}
+        {surface === "sand" && <Button variant="ghost" onClick={() => setClearKey((k) => k + 1)} className="absolute right-3 top-3 h-12 gap-1.5 rounded-full bg-card/80 px-3 text-xs"><Eraser />Smooth the sand</Button>}
         <p className="pointer-events-none absolute bottom-3 left-0 right-0 text-center text-[11px] text-muted-foreground">Use one hand or both — there's no wrong way.</p>
       </section>
 
-      <p className="mt-3 text-center font-display text-sm italic text-primary-strong" role="status">Hands are safe and grounded right now.</p>
-      <Button variant="ghost" onClick={() => setActivity("stream")} className="mt-2 h-12 gap-2 rounded-full text-stream hover:bg-stream-soft hover:text-stream"><Wind />Switch to Guided Breathing</Button>
-      <Button onClick={home} className="mt-1 h-[52px] rounded-full text-[15px] font-semibold shadow-soft hover:bg-primary-strong">I feel centered · Return Home</Button>
+      <footer className="grid gap-2">
+      <p className="text-center font-display text-sm italic text-primary-strong" role="status">Hands are safe and grounded right now.</p>
+      <Button variant="ghost" onClick={() => setActivity("stream")} className="h-auto min-h-12 gap-2 whitespace-normal rounded-full text-stream hover:bg-stream-soft hover:text-stream"><Wind />Switch to Guided Breathing</Button>
+      <Button onClick={home} className="h-auto min-h-[52px] whitespace-normal rounded-full px-3 text-[15px] font-semibold shadow-soft hover:bg-primary-strong">I feel centered · Return Home</Button>
+      </footer>
     </main>
     <div className={sensoryQuiet ? "quiet" : ""}><GroundingSheet activity={activity} onClose={() => setActivity(null)} /></div>
   </div>;

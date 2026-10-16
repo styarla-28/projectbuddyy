@@ -150,6 +150,9 @@
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; } }
 
 body { font-family: var(--font-sans); letter-spacing: 0; }
+main, [role="dialog"] { overflow-wrap: anywhere; }
+.texture-layout { min-height: calc(100dvh - env(safe-area-inset-top)); grid-template-rows: auto auto auto minmax(240px, 1fr) auto; }
+@media (max-height: 560px) { .texture-layout { grid-template-rows: auto auto auto minmax(280px, 1fr) auto; } }
 .paper-canvas { padding-top: env(safe-area-inset-top); position: relative; }
 .paper-canvas::before { content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath filter='url(%23n)' opacity='.5' d='M0 0h180v180H0z'/%3E%3C/svg%3E"); }
 .sanctuary { aspect-ratio: 1.32; box-shadow: var(--shadow-soft); }

@@ -50,7 +50,7 @@ export function TraceCanvas({ surface, quiet, onTouch, clearKey }: { surface: Ex
     const draw = () => {
       const dpr = window.devicePixelRatio || 1;
       const { width, height } = el.getBoundingClientRect();
-      if (el.width !== Math.round(width * dpr)) { el.width = Math.round(width * dpr); el.height = Math.round(height * dpr); }
+      if (el.width !== Math.round(width * dpr) || el.height !== Math.round(height * dpr)) { el.width = Math.round(width * dpr); el.height = Math.round(height * dpr); }
       const g = el.getContext("2d");
       if (!g) return;
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
