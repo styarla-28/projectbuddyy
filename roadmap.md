@@ -26,3 +26,6 @@
 # Healing Meadow
 - [x] Full-screen meadow page: resting spots, reflections, soundscapes, timer, permanent blooms.
 - [x] Route Home and check-in into it; verify.
+
+## Mood tracker
+- [x] Mood check-in + two-week history on Reflections, local-only storage

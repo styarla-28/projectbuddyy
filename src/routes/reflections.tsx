@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Lock, PenLine, Pencil, Trash2, Feather, BookOpen } from "lucide-react";
 import { BottomNav } from "@/components/buddy/BottomNav";
+import { MoodTracker } from "@/components/buddy/MoodTracker";
 import { Button } from "@/components/ui/button";
 import { dateStamp, loadEntries, saveEntries, type JournalEntry } from "@/lib/journal";
 import { cn } from "@/lib/utils";
@@ -72,6 +73,8 @@ function Reflections() {
             <Button variant="outline" className="min-h-12 rounded-full" onClick={() => { reset(); area.current?.focus(); }}><PenLine />New Note</Button>
           </div>
         </header>
+
+        <MoodTracker />
 
         <section aria-label="Reflection prompts" className="mt-5 flex flex-wrap gap-2">
           {PROMPTS.filter((p) => !hidden.includes(p)).map((p) => (
