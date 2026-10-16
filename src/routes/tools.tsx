@@ -69,13 +69,23 @@ function Tools() {
       <h1 className="font-display text-[28px] leading-tight">Coping Sanctuary<span className="text-honey">.</span></h1>
       <p className="mt-1.5 text-[13px] text-graphite">Gentle practices for restless hands and busy minds</p>
       <div className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1" role="group" aria-label="Filter tools">{filters.map((f) => <Button key={f.id} variant="ghost" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)} className={`min-h-12 shrink-0 rounded-full border px-4 text-sm ${filter === f.id ? "border-primary bg-primary-soft text-primary-strong hover:bg-primary-soft hover:text-primary-strong" : "border-border bg-card text-graphite hover:bg-secondary hover:text-graphite"}`}>{f.label}</Button>)}</div>
-      {sections.filter((s) => filter === "all" || filter === s.cat).map((s) => <section key={s.cat} className="mt-6" aria-labelledby={`sec-${s.cat}`}>
-        <h2 id={`sec-${s.cat}`} className="mb-3 font-display text-lg">{s.title}</h2>
-        <div className="grid gap-3">{tools.filter((t) => t.cat === s.cat).map(({ id, title, tag, text, icon: Icon, tint, ink }) => <Button key={id} variant="ghost" onClick={() => launch(id)} className="grounding-card min-h-[88px] w-full justify-start gap-4 whitespace-normal rounded-2xl border border-border bg-card px-4 py-4 text-left shadow-soft hover:bg-card">
-          <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${tint} ${ink}`}>{id === "sound" && sensoryQuiet ? <VolumeX className="size-6!" strokeWidth={1.4} /> : <Icon className="size-6!" strokeWidth={1.4} />}</span>
-          <span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="text-sm font-semibold text-foreground">{title}</span><span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-graphite">{id === "sound" && sensoryQuiet ? "Muted in Quiet Mode" : tag}</span></span><span className="mt-1 block text-xs font-normal text-graphite">{text}</span></span>
-        </Button>)}</div>
-      </section>)}
+      {sections.filter((s) => filter === "all" || filter === "favorites" || filter === s.cat).map((s) => {
+        const shown = tools.filter((t) => t.cat === s.cat && visible(t));
+        if (!shown.length) return null;
+        return <section key={s.cat} className="mt-6" aria-labelledby={`sec-${s.cat}`}>
+          <h2 id={`sec-${s.cat}`} className="mb-3 font-display text-lg">{s.title}</h2>
+          <div className="grid gap-3">{shown.map(({ id, title, tag, text, icon: Icon, tint, ink }) => <div key={id} className="relative">
+            <Button variant="ghost" onClick={() => launch(id)} className="grounding-card min-h-[88px] w-full justify-start gap-4 whitespace-normal rounded-2xl border border-border bg-card px-4 py-4 pr-14 text-left shadow-soft hover:bg-card">
+              <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${tint} ${ink}`}>{id === "sound" && sensoryQuiet ? <VolumeX className="size-6!" strokeWidth={1.4} /> : <Icon className="size-6!" strokeWidth={1.4} />}</span>
+              <span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="text-sm font-semibold text-foreground">{title}</span><span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-graphite">{id === "sound" && sensoryQuiet ? "Muted in Quiet Mode" : tag}</span></span><span className="mt-1 block text-xs font-normal text-graphite">{text}</span></span>
+            </Button>
+            <button type="button" aria-label={favorites.includes(id) ? `Remove ${title} from favorites` : `Save ${title} as a favorite`} aria-pressed={favorites.includes(id)} onClick={() => toggleFavorite(id)} className={`absolute right-2 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full transition-colors ${favorites.includes(id) ? "text-blush" : "text-muted-foreground hover:text-graphite"}`}>
+              <Heart className="size-5" strokeWidth={1.6} fill={favorites.includes(id) ? "currentColor" : "none"} />
+            </button>
+          </div>)}</div>
+        </section>;
+      })}
+      {filter === "favorites" && favorites.length === 0 && <p className="mt-8 rounded-3xl border border-border bg-card p-6 text-center text-sm text-graphite shadow-soft">No favorites yet. Tap the little heart on any tool you love, and it will wait for you here.</p>}
       <p className="mt-6 text-center font-display text-xs italic text-muted-foreground">Every pause is a kind one.</p>
     </main>
     <BottomNav />
