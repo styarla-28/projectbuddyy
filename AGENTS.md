@@ -11,7 +11,7 @@
 
 ## UI architecture
 - Keep Home artwork and companion interaction in CozyRoom, and optional grounding activities in GroundingSheet; this keeps the hub focused and activities independently maintainable.
-- Define all painted palette colors and texture/shadow styling in src/styles.css; semantic tokens preserve consistent theming across Home and shared navigation.
+- Define all painted palette colors, global typography and texture/shadow styling in src/styles.css, aliasing shared semantic colors to the pb theme roles; centralized tokens keep screens and portaled activities consistent.
 - Keep optional check-in choices and the current step in the mounted CheckInSheet session state, separate from its temporary tools view; exits preserve progress without storing sensitive answers.
 - Route check-in activity selections into the shared GroundingSheet and keep breathing phase timing in breathing.ts; Home box breathing and check-in stream breathing retain their distinct rhythms.
 - Keep sensory preferences in the root-mounted SensoryProvider and apply the effective quiet state to body; route changes and portaled activities must honor the same reduced-motion and media-muting controls.

@@ -77,7 +77,7 @@ export function MirrorSanctuary() {
     )}
 
     <Sheet open={consent} onOpenChange={setConsent}>
-      <SheetContent side="bottom" showCloseButton={false} className={`mx-auto max-h-[94dvh] max-w-md overflow-y-auto rounded-t-2xl bg-background px-5 pt-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] ${sensoryQuiet ? "quiet" : ""}`}>
+      <SheetContent side="bottom" showCloseButton={false} className={`mx-auto max-h-[94dvh] max-w-md overflow-y-auto rounded-t-2xl bg-card px-5 pt-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] ${sensoryQuiet ? "quiet" : ""}`}>
         <SheetHeader className="px-0 text-left">
           <SheetTitle className="flex items-center gap-2 font-display text-xl"><Sparkles className="h-5 w-5 text-honey" strokeWidth={1.5} />Mirror Sanctuary<span className="rounded-full bg-secondary px-2 py-0.5 font-sans text-[11px] font-medium text-graphite">Optional</span></SheetTitle>
           <SheetDescription className="sr-only">A softened, private reflection with your companion.</SheetDescription>
@@ -105,7 +105,7 @@ export function MirrorSanctuary() {
         </div>
         <div className="absolute bottom-[calc(1rem+env(safe-area-inset-bottom))] left-4 flex items-center gap-2 rounded-2xl border border-border bg-background/90 p-3 backdrop-blur">
           <CompanionFigure color={companion.color} accessory={companion.accessory} className="mirror-buddy h-12 w-12" imgClassName="object-contain" alt="Your companion" />
-          <span className="text-sm text-foreground">Breathing with you</span>
+          <span className="font-serif text-sm text-foreground">Breathing with you</span>
         </div>
       </div>, document.body)}
   </>;

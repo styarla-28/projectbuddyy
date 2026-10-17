@@ -109,7 +109,7 @@ function MeadowPage() {
       </header>
       <p className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-blush-soft px-3 py-1.5 text-center text-[12px] font-medium text-graphite" role="status"><Flower2 className="h-4 w-4 shrink-0 text-blush" />{blooms} Wildflower{blooms === 1 ? "" : "s"} Bloomed · Never resets</p>
 
-      <section className="relative aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-soft" aria-label="Meadow scene">
+      <section className="meadow-twilight relative aspect-[3/2] overflow-hidden rounded-3xl border border-border shadow-soft" aria-label="Meadow scene">
         <img src={meadow} alt="A hand-painted sunlit meadow with a willow tree, a mossy boulder, wildflowers and a winding stream" width={1536} height={1024} className="meadow-drift absolute inset-0 h-full w-full object-cover" />
         <span className="buddy-settle absolute bottom-[8%] left-[30%] block aspect-square w-[22%]"><CompanionFigure color={companion.color} accessory={companion.accessory} alt={`${companion.name.trim() || "Buddy"}, resting peacefully under the willow`} className="buddy-rest h-full w-full" /></span>
         {Array.from({ length: Math.min(blooms, 24) }, (_, i) => <Flower2 key={i} aria-hidden className="meadow-flower absolute h-4 w-4 text-honey" strokeWidth={1.4} style={{ left: `${45 + ((i * 37) % 50)}%`, bottom: `${3 + ((i * 17) % 14)}%`, animationDelay: `${-i * 0.7}s` }} />)}
