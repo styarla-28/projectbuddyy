@@ -1,4 +1,5 @@
 # Home redesign
+- [ ] Correct scarf and acorn-cap fit in the shared buddy artwork and verify Settings and Home.
 - [x] Apply painted parchment design and new mobile Home layout.
 - [x] Add sanctuary artwork, resting companion, and quiet interactions.
 - [x] Update grounding actions and navigation; preserve optional check-in.

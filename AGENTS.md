@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## UI architecture
+- Render fitted scarf and acorn-cap paintings through the shared CompanionFigure, with tint masks following the selected painting; integrated art keeps clothing seated consistently at every buddy size.
 - Keep Home artwork and companion interaction in CozyRoom, and optional grounding activities in GroundingSheet; this keeps the hub focused and activities independently maintainable.
 - Define all painted palette colors, global typography and texture/shadow styling in src/styles.css, aliasing shared semantic colors to the pb theme roles; centralized tokens keep screens and portaled activities consistent.
 - Keep optional check-in choices and the current step in the mounted CheckInSheet session state, separate from its temporary tools view; exits preserve progress without storing sensitive answers.
