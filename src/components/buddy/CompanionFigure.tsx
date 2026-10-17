@@ -1,20 +1,18 @@
 import type { CSSProperties } from "react";
 import clover from "@/assets/acc-clover.png";
-import acorn from "@/assets/acc-acorn.png";
 import teacup from "@/assets/acc-teacup.png";
 import dewdrop from "@/assets/acc-dewdrop.png";
-import scarf from "@/assets/acc-scarf.png";
 import buddy from "@/assets/moss-buddy.png";
+import scarfBuddy from "@/assets/buddy-wearing-scarf.png";
+import acornBuddy from "@/assets/buddy-wearing-acorn.png";
 import { DEFAULT_COMPANION } from "@/lib/companion";
 
-const mask = { maskImage: `url(${buddy})`, WebkitMaskImage: `url(${buddy})`, maskSize: "contain", WebkitMaskSize: "contain", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center bottom", WebkitMaskPosition: "center bottom" } as const;
+const DRESSED_ART: Record<string, string> = { "Linen Scarf": scarfBuddy, "Acorn Cap": acornBuddy };
 
 const ACCESSORY_ART: Record<string, { src: string; style: CSSProperties }> = {
   "Clover Sprout": { src: clover, style: { left: "55%", top: "12%", width: "20%", transform: "rotate(18deg)" } },
-  "Acorn Cap": { src: acorn, style: { left: "37%", top: "9%", width: "26%" } },
   "Teacup Hat": { src: teacup, style: { left: "32%", top: "10%", width: "38%" } },
   "Dewdrop Pin": { src: dewdrop, style: { left: "60%", top: "56%", width: "9%", transform: "rotate(-12deg)" } },
-  "Linen Scarf": { src: scarf, style: { left: "27%", top: "53%", width: "48%" } },
 };
 
 function Accessory({ name, color, tinted }: { name: string; color: string; tinted: boolean }) {
@@ -30,8 +28,10 @@ function Accessory({ name, color, tinted }: { name: string; color: string; tinte
 /** The companion art tinted with the chosen body wash, plus the chosen accessory. Moss green shows the original painting. */
 export function CompanionFigure({ color, accessory, className = "", imgClassName = "", alt = "" }: { color: string; accessory: string; className?: string; imgClassName?: string; alt?: string }) {
   const tinted = color.toLowerCase() !== DEFAULT_COMPANION.color.toLowerCase();
+  const figure = DRESSED_ART[accessory] ?? buddy;
+  const mask = { maskImage: `url(${figure})`, WebkitMaskImage: `url(${figure})`, maskSize: "contain", WebkitMaskSize: "contain", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat", maskPosition: "center bottom", WebkitMaskPosition: "center bottom" } as const;
   return <span className={`relative isolate block ${className}`}><span className="absolute bottom-0 left-1/2 aspect-square h-full max-w-full -translate-x-1/2">
-    <img src={buddy} alt={alt} width={1024} height={1024} className={`absolute inset-0 h-full w-full object-contain object-bottom ${imgClassName}`} />
+    <img src={figure} alt={alt} width={1024} height={1024} className={`absolute inset-0 h-full w-full object-contain object-bottom ${imgClassName}`} />
     {tinted && <>
       <span aria-hidden className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "color" }} />
       <span aria-hidden className="absolute inset-0" style={{ ...mask, background: color, mixBlendMode: "soft-light", opacity: 0.5 }} />
