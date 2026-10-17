@@ -34,3 +34,8 @@
 - [x] Full-screen wash page with multi-finger painting, hold-bloom, self-fading strokes (verified with mouse).
 - [x] Finishing a wash session (canvas touched, then "Return to Tools") blooms a wildflower like the other tools.
 
+## Gentle Twilight Lavender
+- [ ] Apply global lavender tokens and Newsreader/Poppins pairing across all screens and sheets.
+- [ ] Update journal, tactile surfaces, meadow ambiance and shared touch controls.
+- [ ] Verify screen coverage, interactions, typography and phone layouts.
+
