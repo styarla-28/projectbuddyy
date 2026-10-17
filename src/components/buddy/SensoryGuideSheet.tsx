@@ -38,7 +38,7 @@ export function SensoryGuideSheet({ open, onOpenChange, onOpenActivity }: {
   };
 
   return <Sheet open={open} onOpenChange={onOpenChange}>
-    <SheetContent side="bottom" className="max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-background px-5 pt-14 pb-[calc(2rem+env(safe-area-inset-bottom))]">
+    <SheetContent side="bottom" className="max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-card px-5 pt-14 pb-[calc(2rem+env(safe-area-inset-bottom))]">
       <div className="mx-auto max-w-md">
         <SheetHeader className="px-0 text-left">
           <SheetTitle className="font-display text-2xl">What do your hands need?</SheetTitle>
