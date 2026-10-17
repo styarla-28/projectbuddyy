@@ -79,8 +79,8 @@ function Reflections() {
         <section aria-label="Reflection prompts" className="mt-5 flex flex-wrap gap-2">
           {PROMPTS.filter((p) => !hidden.includes(p)).map((p) => (
             <span key={p} className="inline-flex max-w-full items-stretch overflow-hidden rounded-2xl border border-border bg-honey-soft text-sm text-foreground">
-              <button type="button" onClick={() => insertPrompt(p)} className="min-h-12 px-3 py-2 text-left">{p}</button>
-              <button type="button" aria-label="Dismiss prompt" onClick={() => setHidden((h) => [...h, p])} className="min-w-10 border-l border-border px-2 text-muted-foreground">×</button>
+              <Button variant="ghost" type="button" onClick={() => insertPrompt(p)} className="min-h-12 px-3 py-2 font-serif text-base whitespace-normal rounded-none text-left">{p}</Button>
+              <Button variant="ghost" type="button" aria-label="Dismiss prompt" onClick={() => setHidden((h) => [...h, p])} className="min-h-12 min-w-12 rounded-none border-l border-border px-2 text-muted-foreground">×</Button>
             </span>
           ))}
         </section>
@@ -90,7 +90,7 @@ function Reflections() {
           <textarea
             id="journal-draft" ref={area} value={text} onChange={(e) => setText(e.target.value)}
             placeholder="Write whatever feels true right now…"
-            className="journal-paper block w-full resize-none overflow-hidden border-0 pl-12 pr-4 pt-0 font-hand text-xl leading-8 text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+            className="journal-paper block w-full resize-none overflow-hidden border-0 pl-12 pr-4 pt-0 font-sans text-sm leading-8 text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
             style={{ paddingTop: 32, paddingBottom: 32 }}
           />
         </section>
@@ -130,7 +130,7 @@ function Reflections() {
               {[...e.body, ...e.mood, ...e.outcome].length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">{[...e.body, ...e.mood, ...e.outcome].map((t) => <span key={t} className="rounded-full bg-secondary px-2.5 py-1 text-xs text-graphite">{t}</span>)}</div>
               )}
-              <p className="mt-4 rounded-2xl bg-stream-soft px-4 py-3 text-sm text-foreground">You showed awareness and care for yourself in this moment.</p>
+              <p className="mt-4 rounded-2xl bg-primary-soft px-4 py-3 font-serif text-base text-foreground">You showed awareness and care for yourself in this moment.</p>
               <div className="mt-3 flex justify-end gap-2">
                 <Button variant="ghost" className="min-h-12 rounded-full" onClick={() => edit(e)}><Pencil />Edit</Button>
                 <Button variant="ghost" className="min-h-12 rounded-full text-graphite" onClick={() => remove(e.id)}><Trash2 />Delete note</Button>

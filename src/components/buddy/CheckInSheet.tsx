@@ -45,10 +45,10 @@ export function CheckInSheet({ open, onOpenChange, onBeginActivity }: {
     contentRef.current?.scrollTo({ top: 0 });
     requestAnimationFrame(() => headingRef.current?.focus());
   };
-  const chipClass = (selected: boolean) => `min-h-12 rounded-2xl border px-4 py-3 text-sm whitespace-normal font-medium transition-colors active:scale-[0.98] ${selected ? "border-primary bg-honey-soft text-primary-strong hover:bg-honey-soft hover:text-primary-strong" : "border-border bg-card text-graphite hover:bg-secondary hover:text-graphite"}`;
+  const chipClass = (selected: boolean) => `min-h-12 rounded-2xl border px-4 py-3 text-sm whitespace-normal font-medium transition-colors active:scale-[0.98] ${selected ? "border-primary bg-honey-soft text-primary-strong hover:bg-honey-soft hover:text-primary-strong" : "border-border bg-secondary text-graphite hover:bg-primary-soft hover:text-graphite"}`;
 
   return <Sheet open={open} onOpenChange={close}>
-    <SheetContent ref={contentRef} side="bottom" showCloseButton={false} className="pause-sheet max-h-[94dvh] overflow-y-auto rounded-t-3xl border-border bg-background px-5 pt-3 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:inset-x-auto sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:px-7">
+    <SheetContent ref={contentRef} side="bottom" showCloseButton={false} className="pause-sheet max-h-[94dvh] overflow-y-auto rounded-t-3xl border-border bg-card px-5 pt-3 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:inset-x-auto sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:px-7">
       <div className="mx-auto mb-1 h-1 w-10 rounded-full bg-border" aria-hidden="true" />
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2 text-xs font-semibold text-primary-strong"><Leaf className="h-4 w-4" strokeWidth={1.5} />A meadow pause</span>
@@ -69,7 +69,7 @@ export function CheckInSheet({ open, onOpenChange, onBeginActivity }: {
 
       {!showingTools && step === 1 && <div className="my-5">
         <div className="py-3">
-          <p className="mb-3 flex items-center justify-center gap-2 font-display text-xl text-primary-strong" aria-live="polite"><Leaf className="h-5 w-5" strokeWidth={1.4} />{levels[intensity - 1]}<span className="font-sans text-xs text-muted-foreground">· {intensity} / 5</span></p>
+          <p className="mb-3 flex items-center justify-center gap-2 font-sans text-xl text-primary-strong" aria-live="polite"><Leaf className="h-5 w-5" strokeWidth={1.4} />{levels[intensity - 1]}<span className="font-sans text-xs text-muted-foreground">· {intensity} / 5</span></p>
           <Slider className="urge-slider h-14 px-6" value={[intensity]} onValueChange={(values) => { const value = values[0]; if (value !== undefined) setIntensity(value); }} min={1} max={5} step={1} thumbLabel="Urge intensity" thumbValueText={`${intensity} — ${levels[intensity - 1]}`} />
           <div className="flex justify-between text-xs text-graphite"><span>Whispering</span><span>Very loud</span></div>
         </div>

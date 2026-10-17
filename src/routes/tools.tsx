@@ -87,7 +87,7 @@ function Tools() {
     </main>
     <BottomNav />
     <Sheet open={!!tool} onOpenChange={(o) => { if (!o) setOpen(null); }}>
-      <SheetContent side="bottom" showCloseButton={false} className={`max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-background px-5 pt-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] ${sensoryQuiet ? "quiet" : ""}`}>
+      <SheetContent side="bottom" showCloseButton={false} className={`max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-card px-5 pt-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] ${sensoryQuiet ? "quiet" : ""}`}>
         <div className="mx-auto max-w-md">
           <Button variant="ghost" onClick={() => setOpen(null)} className="h-12 rounded-full px-3 text-graphite"><ArrowLeft className="h-4 w-4" />Exit & Return to Tools</Button>
           {tool && <><SheetHeader className="mt-2 px-0 text-left"><SheetTitle className="font-display text-2xl">{tool.title}</SheetTitle><SheetDescription className="text-graphite">{tool.text}</SheetDescription></SheetHeader>{body[tool.id as Exclude<ToolId, "texture" | "wash">]}</>}

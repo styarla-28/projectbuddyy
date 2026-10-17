@@ -29,7 +29,7 @@ export const Route = createFileRoute("/settings")({
 function Group({ value, icon, title, extra, children }: { value: string; icon: ReactNode; title: string; extra?: ReactNode; children: ReactNode }) {
   return (
     <AccordionItem value={value} className="settings-group mt-4 rounded-3xl border bg-card px-4 shadow-soft last:border-b">
-      <AccordionTrigger className="min-h-14 gap-3 py-3 font-display text-lg font-semibold hover:no-underline">
+      <AccordionTrigger className="min-h-14 gap-3 py-3 font-sans text-lg font-semibold hover:no-underline">
         <span className="flex flex-1 items-center gap-3 text-left">{icon}<span className="flex-1">{title}</span>{extra}</span>
       </AccordionTrigger>
       <AccordionContent className="pb-4">{children}</AccordionContent>
@@ -80,9 +80,9 @@ function SettingsPage() {
             <div role="radiogroup" aria-label="Body wash palette" className="mt-2 flex flex-wrap gap-3">
               {WASHES.map((w) => {
                 const on = w.hex.toLowerCase() === companion.color.toLowerCase();
-                return <button key={w.hex} type="button" role="radio" aria-checked={on} aria-label={w.name} onClick={() => setCompanion({ color: w.hex })} className="swatch grid size-11 place-items-center rounded-full border-2" style={{ background: w.hex, borderColor: on ? "var(--foreground)" : "var(--border)" }}>{on && <Check className="size-4 text-card mix-blend-difference" />}</button>;
+                return <button key={w.hex} type="button" role="radio" aria-checked={on} aria-label={w.name} onClick={() => setCompanion({ color: w.hex })} className="swatch grid size-12 place-items-center rounded-full border-2" style={{ background: w.hex, borderColor: on ? "var(--foreground)" : "var(--border)" }}>{on && <Check className="size-4 text-card mix-blend-difference" />}</button>;
               })}
-              <label className="swatch relative grid size-11 cursor-pointer place-items-center overflow-hidden rounded-full border-2 border-dashed" style={{ borderColor: custom ? "var(--foreground)" : "var(--border)", background: custom ? companion.color : undefined }}>
+              <label className="swatch relative grid size-12 cursor-pointer place-items-center overflow-hidden rounded-full border-2 border-dashed" style={{ borderColor: custom ? "var(--foreground)" : "var(--border)", background: custom ? companion.color : undefined }}>
                 <span className="sr-only">Custom color</span>
                 {!custom && <span aria-hidden className="text-lg text-graphite">+</span>}
                 <input type="color" value={companion.color} onChange={(e) => setCompanion({ color: e.target.value })} className="absolute inset-0 cursor-pointer opacity-0" />
@@ -93,7 +93,7 @@ function SettingsPage() {
             <div role="radiogroup" aria-label="Cozy accessories" className="mt-2 flex flex-wrap gap-2">
               {ACCESSORIES.map((a) => {
                 const on = companion.accessory === a;
-                return <button key={a} type="button" role="radio" aria-checked={on} onClick={() => setCompanion({ accessory: a })} className={`min-h-11 rounded-full border px-4 text-sm transition-colors ${on ? "border-2 border-foreground bg-honey-soft font-semibold" : "bg-background"}`}>{a}</button>;
+                return <button key={a} type="button" role="radio" aria-checked={on} onClick={() => setCompanion({ accessory: a })} className={`min-h-12 rounded-full border px-4 text-sm transition-colors ${on ? "border-2 border-foreground bg-honey-soft font-semibold" : "bg-background"}`}>{a}</button>;
               })}
             </div>
 
@@ -134,7 +134,7 @@ function SettingsPage() {
             <Accordion type="single" collapsible>
               <AccordionItem value="philosophy" className="border-b-0">
                 <AccordionTrigger className="min-h-12 font-semibold hover:no-underline">Our Philosophy</AccordionTrigger>
-                <AccordionContent className="text-graphite">Healing from skin picking and other BFRBs isn't a straight line. There are no streaks to break, no scores, and no shame here — every pause, every noticing, every gentle moment counts. You are welcome back exactly as you are, any time.</AccordionContent>
+                <AccordionContent className="font-serif text-base leading-relaxed text-graphite">Healing from skin picking and other BFRBs isn't a straight line. There are no streaks to break, no scores, and no shame here — every pause, every noticing, every gentle moment counts. You are welcome back exactly as you are, any time.</AccordionContent>
               </AccordionItem>
             </Accordion>
             <p className="mt-2 font-semibold">BFRB Support Links</p>

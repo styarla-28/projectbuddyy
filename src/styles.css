@@ -64,8 +64,9 @@
   --color-honey: var(--honey);
   --color-sky: var(--sky);
   --color-wood: var(--wood);
-  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Lora", Georgia, serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader", Georgia, serif;
+  --font-serif: "Newsreader", Georgia, serif;
   --color-primary-strong: var(--primary-strong);
   --color-stream: var(--stream);
   --color-stream-soft: var(--stream-soft);
@@ -85,37 +86,45 @@
   --pb-ease-breathe: cubic-bezier(0.42, 0, 0.58, 1);
   --pb-ease-ghibli: cubic-bezier(0.25, 0.1, 0.25, 1.0);
   --radius: 1rem;
-  --background: oklch(0.971 0.01 87);
-  --foreground: oklch(0.278 0.009 96);
-  --card: oklch(1 0 0);
+  --pb-bg-canvas: oklch(0.96110102 0.00695185 304.241288);
+  --pb-bg-surface: oklch(0.99999999 0.00000004 89.875563);
+  --pb-bg-subtle: oklch(0.93094123 0.01402260 304.129170);
+  --pb-border: oklch(0.87332362 0.02268869 302.894654);
+  --pb-text-primary: oklch(0.25753037 0.02289509 300.046992);
+  --pb-text-muted: oklch(0.49716692 0.02764705 301.470262);
+  --pb-accent: oklch(0.51185994 0.06946888 302.143502);
+  --pb-accent-subtle: oklch(0.93534113 0.01687343 304.795580);
+  --background: var(--pb-bg-canvas);
+  --foreground: var(--pb-text-primary);
+  --card: var(--pb-bg-surface);
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: var(--card);
   --popover-foreground: var(--foreground);
-  --primary: oklch(0.548 0.055 139);
-  --primary-strong: oklch(0.418 0.047 141);
-  --primary-foreground: oklch(0.982 0.009 87);
-  --primary-soft: oklch(0.932 0.019 122);
-  --secondary: oklch(0.944 0.016 93);
+  --primary: var(--pb-accent);
+  --primary-strong: var(--pb-accent);
+  --primary-foreground: var(--pb-bg-surface);
+  --primary-soft: var(--pb-accent-subtle);
+  --secondary: var(--pb-bg-subtle);
   --secondary-foreground: var(--foreground);
   --muted: var(--secondary);
-  --muted-foreground: oklch(0.572 0.015 96);
-  --graphite: oklch(0.454 0.016 100);
-  --accent: oklch(0.636 0.059 219);
-  --accent-foreground: var(--card);
-  --accent-soft: oklch(0.944 0.016 220);
+  --muted-foreground: var(--pb-text-muted);
+  --graphite: var(--pb-text-muted);
+  --accent: var(--pb-accent-subtle);
+  --accent-foreground: var(--pb-text-primary);
+  --accent-soft: var(--pb-accent-subtle);
   --stream: oklch(0.636 0.059 219);
   --stream-soft: oklch(0.944 0.016 220);
   --honey: oklch(0.759 0.122 81);
-  --honey-soft: oklch(0.968 0.03 88);
+  --honey-soft: var(--pb-accent-subtle);
   --blush: oklch(0.656 0.091 25);
   --blush-soft: oklch(0.942 0.022 43);
   --olive: oklch(0.68 0.09 120);
-  --olive-soft: oklch(0.86 0.07 118);
+  --olive-soft: var(--pb-bg-subtle);
   --sky: var(--stream-soft);
   --wood: var(--honey);
   --destructive: var(--graphite);
   --destructive-foreground: var(--card);
-  --border: oklch(0.895 0.018 85);
+  --border: var(--pb-border);
   --input: var(--border);
   --ring: var(--primary);
   --chart-1: var(--primary);
@@ -138,6 +147,10 @@
   * {
     border-color: var(--color-border);
   }
+
+  h1, h2, h3 { font-family: var(--font-serif); }
+
+  button, input, textarea, select { font-family: var(--font-sans); }
 
   body {
     background-color: var(--color-background);
@@ -201,26 +214,21 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 .seed-bloom { animation: seed-bloom 600ms var(--pb-ease-ghibli); }
 @keyframes seed-bloom { from { transform: scale(.7); opacity: .4; } to { transform: scale(1); opacity: 1; } }
 .texture-tab { transition: background-color 180ms var(--pb-ease-ghibli), border-color 180ms var(--pb-ease-ghibli); }
+/* Optional higher-contrast twilight for the tactile activity. */
 .pb-evening {
-  --background: oklch(0.24 0.012 95); --foreground: oklch(0.96 0.01 87); --card: oklch(0.3 0.012 95);
-  --secondary: oklch(0.33 0.015 90); --muted-foreground: oklch(0.82 0.015 90); --graphite: oklch(0.9 0.012 90);
-  --border: oklch(0.5 0.02 90); --primary: oklch(0.72 0.07 139); --primary-strong: oklch(0.86 0.06 139);
-  --primary-foreground: oklch(0.2 0.01 95); --primary-soft: oklch(0.34 0.03 139);
-  --stream: oklch(0.78 0.07 219); --stream-soft: oklch(0.32 0.03 220);
-  --honey: oklch(0.82 0.12 81); --honey-soft: oklch(0.34 0.04 85); --wood: var(--honey);
-  --olive: oklch(0.8 0.09 120); --olive-soft: oklch(0.37 0.055 122);
+  --background: oklch(0.25 0.025 305); --foreground: oklch(0.96 0.01 305);
+  --card: oklch(0.32 0.025 305); --card-foreground: var(--foreground);
+  --secondary: oklch(0.36 0.035 305); --muted-foreground: oklch(0.83 0.018 305);
+  --graphite: var(--muted-foreground); --border: oklch(0.54 0.035 305);
+  --primary: oklch(0.8 0.065 305); --primary-strong: var(--primary);
+  --primary-foreground: oklch(0.22 0.025 305); --primary-soft: oklch(0.37 0.04 305);
+  --stream: oklch(0.81 0.065 220); --stream-soft: oklch(0.35 0.035 220);
+  --honey: oklch(0.82 0.1 81); --honey-soft: var(--primary-soft); --wood: var(--honey);
+  --olive-soft: var(--secondary); --accent: var(--secondary); --accent-foreground: var(--foreground);
   background-color: var(--background); color: var(--foreground);
 }
-.pb-evening {
-  --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card);
-  --color-secondary: var(--secondary); --color-muted-foreground: var(--muted-foreground); --color-graphite: var(--graphite);
-  --color-border: var(--border); --color-primary: var(--primary); --color-primary-strong: var(--primary-strong);
-  --color-primary-foreground: var(--primary-foreground); --color-primary-soft: var(--primary-soft);
-  --color-stream: var(--stream); --color-stream-soft: var(--stream-soft); --color-honey: var(--honey);
-  --color-honey-soft: var(--honey-soft); --color-wood: var(--wood); --color-accent: var(--secondary); --color-accent-foreground: var(--foreground);
-}
-:root { --journal-paper: oklch(0.975 0.018 90); --journal-rule: oklch(0.915 0.02 88); --journal-margin: oklch(0.905 0.03 20); }
-@theme inline { --font-hand: "Caveat", "Patrick Hand", cursive; --color-journal-paper: var(--journal-paper); }
+:root { --journal-paper: var(--pb-bg-subtle); --journal-rule: var(--pb-border); --journal-margin: color-mix(in oklab, var(--pb-accent) 24%, var(--pb-bg-subtle)); }
+@theme inline { --font-hand: var(--font-sans); --color-journal-paper: var(--journal-paper); }
 .journal-paper { background-color: var(--journal-paper); background-image: linear-gradient(90deg, transparent 35px, var(--journal-margin) 35px, var(--journal-margin) 37px, transparent 37px), repeating-linear-gradient(transparent, transparent 31px, var(--journal-rule) 31px, var(--journal-rule) 32px); background-attachment: local; }
 .journal-entry { animation: journal-fade 150ms ease-out; }
 @keyframes journal-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -251,4 +259,6 @@ main, [role="dialog"] { overflow-wrap: anywhere; }
 @keyframes mirror-anchor { 0%, 100% { opacity: 0.5; } 45% { opacity: 1; } }
 .quiet .mirror-buddy, .quiet .mirror-anchor, body.quiet .mirror-buddy, body.quiet .mirror-anchor { animation: none; }
 @media (prefers-reduced-motion: reduce) { .mirror-buddy, .mirror-anchor { animation: none; } .mirror-fade { animation-duration: 150ms; } }
-.settings-group { border-color: oklch(0.86 0.022 90); }
+.settings-group { border-color: var(--pb-border); }
+.meadow-twilight { filter: saturate(0.82); }
+.meadow-twilight::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: color-mix(in oklab, var(--pb-accent) 18%, transparent); mix-blend-mode: soft-light; }

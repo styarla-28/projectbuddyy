@@ -23,7 +23,7 @@ export function GroundingSheet({ activity, onClose }: { activity: GroundingActiv
   const moment = breathingMoment(seconds, activity === "stream");
   const title = activity === "stream" ? "Breathe with stream" : activity === "breathing" ? "Box Breathing" : activity === "texture" ? "Tactile Texture Pad" : "Healing Meadow";
   return <Sheet open={activity !== null} onOpenChange={(open) => { if (!open) { if (isBreathing && seconds >= 15) bloom(); onClose(); } }}>
-    <SheetContent side="bottom" className="max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-background px-5 pt-14 pb-[calc(2rem+env(safe-area-inset-bottom))]">
+    <SheetContent side="bottom" className="max-h-[94dvh] overflow-y-auto rounded-t-3xl bg-card px-5 pt-14 pb-[calc(2rem+env(safe-area-inset-bottom))]">
       <div className="mx-auto max-w-md">
         <SheetHeader className="px-0 text-center">
           <SheetTitle className="font-display text-2xl">{title}</SheetTitle>
